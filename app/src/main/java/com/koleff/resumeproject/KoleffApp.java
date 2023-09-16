@@ -3,6 +3,7 @@ package com.koleff.resumeproject;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -13,6 +14,7 @@ import androidx.multidex.MultiDexApplication;
 public class KoleffApp extends MultiDexApplication { //implements DefaultLifecycleObserver
     private static Context appContext = null;
     private static Activity activeActivity = null;
+    private static SharedPreferences sharedPreferences = null;
 
     /**
      * Getters & Setters
@@ -33,6 +35,16 @@ public class KoleffApp extends MultiDexApplication { //implements DefaultLifecyc
     private static void setActiveActivity(Activity activeActivity) {
         KoleffApp.activeActivity = activeActivity;
     }
+
+
+    public static SharedPreferences getSharedPreferences() {
+        return sharedPreferences; 
+    }
+
+    private static void setSharedPreferences(SharedPreferences sharedPreferences){
+        KoleffApp.sharedPreferences = sharedPreferences;
+    }
+
     /**
      * Called first
      */
@@ -41,6 +53,10 @@ public class KoleffApp extends MultiDexApplication { //implements DefaultLifecyc
         super.onCreate();
 
         setAppContext(getApplicationContext());
+
+        //Cache
+        setSharedPreferences(appContext.getSharedPreferences("group.Koleff", Context.MODE_PRIVATE));
+
         ActivityConfigurator activityConfigurator = new ActivityConfigurator();
         activityConfigurator.setupActivityListener();
     }
