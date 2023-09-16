@@ -1,7 +1,9 @@
 package com.koleff.resumeproject;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 
 import androidx.lifecycle.DefaultLifecycleObserver;
@@ -9,7 +11,21 @@ import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
 
 public class KoleffApp extends MultiDexApplication { //implements DefaultLifecycleObserver
+    private static Context appContext = null;
     private static Activity activeActivity = null;
+
+    /**
+     * Getters & Setters
+     */
+
+    private static void setAppContext(Context appContext) {
+        KoleffApp.appContext = appContext;
+    }
+
+    public static Context getAppContext() {
+        return appContext;
+    }
+
     public static Activity getActiveActivity() {
         return activeActivity;
     }
@@ -23,6 +39,8 @@ public class KoleffApp extends MultiDexApplication { //implements DefaultLifecyc
     @Override
     public void onCreate() {
         super.onCreate();
+
+        setAppContext(getApplicationContext());
         ActivityConfigurator activityConfigurator = new ActivityConfigurator();
         activityConfigurator.setupActivityListener();
     }
