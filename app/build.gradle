@@ -33,6 +33,19 @@ android {
     buildFeatures {
         viewBinding true
     }
+    productFlavors {
+        paid {
+            dimension 'app'
+
+            applicationId 'paid'
+        }
+
+        free {
+            dimension 'app'
+
+            applicationId 'free'
+        }
+    }
 }
 dependencies {
     implementation 'androidx.core:core-ktx:1.8.0'
