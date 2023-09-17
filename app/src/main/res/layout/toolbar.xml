@@ -30,6 +30,7 @@
         android:gravity="center"
         android:maxLines="2"
         android:text="@string/text_tittle"
+        android:layout_marginStart="54dp"
         android:textColor="@color/textPrimary"
         android:layout_centerVertical="true"
         android:textSize="20sp" />
