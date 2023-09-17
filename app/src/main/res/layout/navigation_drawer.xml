@@ -75,7 +75,7 @@
         android:orientation="vertical">
 
         <ListView
-            android:id="@+id/options_list"
+            android:id="@+id/list_settings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbarSize="10dp"
