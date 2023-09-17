@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:minHeight="70dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:background="@android:color/white">
+
+    <ImageView
+        android:id="@+id/ivNavigationDrawer"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:scaleType="center"
+        app:srcCompat="@drawable/ic_navigation_drawer_bars" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:fontFamily="@font/inter_bold"
+        android:textColor="@color/textPrimary"
+        android:text="@string/text_tittle"
+        android:maxLines="2"/>
+
+    <ImageView
+        android:id="@+id/ivRefresh"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:scaleType="center"
+        app:srcCompat="@drawable/ic_refresh" />
+
+    <ImageView
+        android:id="@+id/ivRightAction"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:scaleType="center"
+        app:srcCompat="@drawable/ic_settings" />
+
+</LinearLayout>
+
