@@ -1,4 +1,4 @@
-package com.koleff.resumeproject
+package com.koleff.resumeproject.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
