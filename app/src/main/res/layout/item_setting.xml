@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
+
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="30dp"
+            android:layout_height="60dp"
+            android:layout_weight="0"
+            android:scaleType="fitCenter"/>
+
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:maxLines="1"/>
+
+<!--        <m2mservices.rcontrol.extended.SwitchButton-->
+<!--            android:id="@+id/switch_view"-->
+<!--            style="@style/SwitchButtonStyle"-->
+<!--            android:visibility="gone"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:layout_weight="0" />-->
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llSeparator"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:orientation="horizontal"
+        android:layout_marginLeft="16.0dp"
+        android:layout_marginRight="16.0dp" />
+</LinearLayout>
