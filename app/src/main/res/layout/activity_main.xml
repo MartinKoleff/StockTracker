@@ -10,6 +10,6 @@
     <include
         android:id="@+id/toolbar"
         android:fitsSystemWindows="true"
-        layout="@layout/toolbar"></include>
+        layout="@layout/toolbar" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
