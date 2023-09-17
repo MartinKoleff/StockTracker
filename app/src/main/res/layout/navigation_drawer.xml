@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_navigation_drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    android:background="@android:color/white">
 
     <LinearLayout
         android:id="@+id/header_navigation_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:gravity="bottom"
         android:orientation="vertical"
         android:paddingLeft="16dp"
         android:paddingTop="16dp"
         android:paddingRight="16dp"
-        android:paddingBottom="10dp"
-        android:layout_alignParentTop="true">
+        android:paddingBottom="10dp">
 
         <ImageView
             android:id="@+id/image_logo"
@@ -44,8 +47,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:layout_toLeftOf="@id/image_refresh"
-                android:layout_toRightOf="@id/image_search"
+                android:layout_toStartOf="@id/image_refresh"
+                android:layout_toEndOf="@id/image_search"
                 android:imeOptions="actionSearch"
                 android:singleLine="true"
                 android:textSize="14sp" />
