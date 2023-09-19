@@ -1,5 +1,6 @@
 package com.koleff.resumeproject.common
 
 object Constants {
-    const val BLL_SERVER_ADDRESS_1 = "http://api.marketstack.com"
+    const val BASE_URL = "http://api.marketstack.com//"
+    const val BASE_LOCAL_URL = "https://localhost"
 }
