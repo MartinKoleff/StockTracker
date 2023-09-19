@@ -1,4 +1,4 @@
-package com.koleff.resumeproject.domain.apiServices.models.responses
+package com.koleff.resumeproject.domain.models.responses
 
 import com.koleff.resumeproject.data.remote.dto.PaginationDataDto
 import com.koleff.resumeproject.data.remote.dto.StockDataDto
@@ -9,4 +9,4 @@ data class GetStockDataResponse (
     val paginationData: PaginationDataDto,
     @field:Json(name = "data")
     val data: List<StockDataDto>,
-)
+): BaseResponse()
