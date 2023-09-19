@@ -9,16 +9,22 @@ import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 class StockMarketRepositoryImpl
-    @Inject constructor(
-        private val stockMarketApi: StockMarketApi,
-        private val dispatcher: CoroutineDispatcher = Dispatchers.IO) : StockMarketRepository {
+@Inject constructor(
+    private val stockMarketApi: StockMarketApi,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+) : StockMarketRepository {
 
     override suspend fun getStockMarketData(
         stockTag: String,
         dateFrom: String,
         dateTo: String
     ): GetStockDataResponse {
+        val request = GetStockDataBody(
+            stockTag,
+            dateFrom,
+            dateTo
+        )
 
-       return stockMarketApi.getStockData(GetStockDataBody(stockTag, dateFrom, dateTo))
+        return stockMarketApi.getStockData(request)
     }
 }
