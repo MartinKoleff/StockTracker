@@ -25,6 +25,7 @@ class StockMarketRepositoryImpl
             dateTo
         )
 
+        //Wrap with safeApiCall...
         return stockMarketApi.getStockData(request)
     }
 }
