@@ -1,12 +1,12 @@
 package com.koleff.resumeproject.data.repositories
 
+import com.koleff.resumeproject.common.Constants
 import com.koleff.resumeproject.common.Network
 import com.koleff.resumeproject.data.remote.StockMarketApi
-import com.koleff.resumeproject.domain.apiServices.models.requests.GetStockDataBody
+import com.koleff.resumeproject.domain.models.requests.GetStockDataBody
 import com.koleff.resumeproject.domain.repositories.StockMarketRepository
 import com.koleff.resumeproject.domain.wrappers.GetStockDataWrapper
 import com.koleff.resumeproject.domain.wrappers.ResultWrapper
-import com.koleff.resumeproject.domain.wrappers.ServerResponseData
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
@@ -28,6 +28,15 @@ class StockMarketRepositoryImpl
             dateTo
         )
 
-        return Network.executeApiCall(dispatcher,{ GetStockDataWrapper(stockMarketApi.getStockData(request)) }) //GetStockDataWrapper
+        return Network.executeApiCall(dispatcher,
+            {
+                GetStockDataWrapper(
+                    stockMarketApi.getStockData(
+                        stockTag,
+                        dateFrom,
+                        dateTo
+                    )
+                )
+            }) //stockMarketApi.getStockData(request)
     }
 }
