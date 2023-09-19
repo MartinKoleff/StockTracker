@@ -45,4 +45,6 @@
     </string>
     <string name="text_tittle">Title</string>
     <string name="text_language">Language</string>
+    <string name="text_success">Success</string>
+    <string name="text_internal_exception">An error occured.</string>
 </resources>
