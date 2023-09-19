@@ -1,11 +1,10 @@
 package com.koleff.resumeproject.dependecyInjection
 
-import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.koleff.resumeproject.common.Constants
 import com.koleff.resumeproject.data.remote.dto.StockMarketApi
 import com.koleff.resumeproject.data.repositories.StockMarketRepositoryImpl
-import com.koleff.resumeproject.domain.api.repositories.interfaces.StockMarketRepository
+import com.koleff.resumeproject.domain.apiServices.repositories.interfaces.StockMarketRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

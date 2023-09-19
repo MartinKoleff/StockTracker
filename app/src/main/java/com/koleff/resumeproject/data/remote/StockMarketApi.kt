@@ -1,7 +1,7 @@
 package com.koleff.resumeproject.data.remote.dto
 
-import com.koleff.resumeproject.domain.api.models.requests.GetStockDataBody
-import com.koleff.resumeproject.domain.api.models.responses.GetStockDataResponse
+import com.koleff.resumeproject.domain.apiServices.models.requests.GetStockDataBody
+import com.koleff.resumeproject.domain.apiServices.models.responses.GetStockDataResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 

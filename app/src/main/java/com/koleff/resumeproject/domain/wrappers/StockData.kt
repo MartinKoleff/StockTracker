@@ -1,7 +1,6 @@
-package com.koleff.resumeproject.domain.api.wrappers
+package com.koleff.resumeproject.domain.apiServices.wrappers
 
 import com.koleff.resumeproject.data.remote.dto.StockDataDto
-import com.squareup.moshi.Json
 
 //Used for presentation layer creation.
 data class StockData (val stockDataDto: StockDataDto){

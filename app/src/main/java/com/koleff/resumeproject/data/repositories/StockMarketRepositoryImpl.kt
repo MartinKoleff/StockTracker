@@ -1,9 +1,9 @@
 package com.koleff.resumeproject.data.repositories
 
 import com.koleff.resumeproject.data.remote.dto.StockMarketApi
-import com.koleff.resumeproject.domain.api.models.requests.GetStockDataBody
-import com.koleff.resumeproject.domain.api.models.responses.GetStockDataResponse
-import com.koleff.resumeproject.domain.api.repositories.interfaces.StockMarketRepository
+import com.koleff.resumeproject.domain.apiServices.models.requests.GetStockDataBody
+import com.koleff.resumeproject.domain.apiServices.models.responses.GetStockDataResponse
+import com.koleff.resumeproject.domain.apiServices.repositories.interfaces.StockMarketRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
@@ -14,7 +14,7 @@ class StockMarketRepositoryImpl
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : StockMarketRepository {
 
-    override suspend fun getStockMarketData(
+    override suspend fun getStockData(
         stockTag: String,
         dateFrom: String,
         dateTo: String

@@ -1,6 +1,6 @@
 package com.koleff.resumeproject.data.remote.dto
 
-import com.koleff.resumeproject.domain.api.wrappers.StockData
+import com.koleff.resumeproject.domain.apiServices.wrappers.StockData
 import com.squareup.moshi.Json
 
 data class StockDataDto (

@@ -1,4 +1,4 @@
-package com.koleff.resumeproject.domain.api.models.responses
+package com.koleff.resumeproject.domain.apiServices.models.responses
 
 import com.koleff.resumeproject.data.remote.dto.PaginationDataDto
 import com.koleff.resumeproject.data.remote.dto.StockDataDto
