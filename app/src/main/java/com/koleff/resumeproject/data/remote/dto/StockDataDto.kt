@@ -31,3 +31,7 @@ data class StockDataDto (
     @field:Json(name = "adj_volume")
     val adjustVolume: Double,
 )
+
+fun StockDataDto.toStockData(stockDataDto: StockDataDto): StockData{
+    return StockData(stockDataDto)
+}
