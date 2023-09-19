@@ -1,4 +1,4 @@
-package com.koleff.resumeproject
+package com.koleff.resumeproject.common
 
 import android.content.SharedPreferences
 

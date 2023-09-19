@@ -1,8 +1,9 @@
-package com.koleff.resumeproject.api.wrappers
+package com.koleff.resumeproject.data.remote.dto
 
+import com.koleff.resumeproject.domain.api.wrappers.StockData
 import com.squareup.moshi.Json
 
-data class StockData (
+data class StockDataDto (
     @field:Json(name = "date")
     val date: String,
     @field:Json(name = "symbols")

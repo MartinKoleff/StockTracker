@@ -1,12 +1,11 @@
-package com.koleff.resumeproject.api.services.implemetations
+package com.koleff.resumeproject.domain.api.services.implemetations
 
-import com.koleff.resumeproject.KoleffApp
-import com.koleff.resumeproject.api.models.responses.GetStockDataResponse
-import com.koleff.resumeproject.api.repositories.implemetations.StockMarketRepositoryImpl
+import com.koleff.resumeproject.domain.api.models.responses.GetStockDataResponse
+import com.koleff.resumeproject.data.repositories.StockMarketRepositoryImpl
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-object StockMarketApi {
+object StockMarketApiService {
 
     suspend fun getStockMarketData(
         stockTag: String,

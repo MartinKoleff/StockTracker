@@ -1,6 +1,6 @@
-package com.koleff.resumeproject.api.repositories.interfaces
+package com.koleff.resumeproject.domain.api.repositories.interfaces
 
-import com.koleff.resumeproject.api.models.responses.GetStockDataResponse
+import com.koleff.resumeproject.domain.api.models.responses.GetStockDataResponse
 import com.squareup.moshi.Json
 
 interface StockMarketRepository {

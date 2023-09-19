@@ -1,4 +1,4 @@
-package com.koleff.resumeproject.types
+package com.koleff.resumeproject.common.types
 
 import android.graphics.Typeface
 import com.koleff.resumeproject.KoleffApp

@@ -1,4 +1,4 @@
-package com.koleff.resumeproject.api.models.requests
+package com.koleff.resumeproject.domain.api.models.requests
 
 import com.squareup.moshi.Json
 
