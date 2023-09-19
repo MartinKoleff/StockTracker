@@ -11,9 +11,12 @@ import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
 
+import dagger.hilt.android.HiltAndroidApp;
+
+@HiltAndroidApp
 public class KoleffApp extends MultiDexApplication { //implements DefaultLifecycleObserver
 
-    private static final String TAG_LOG = "KOLEFF";
+    public static final String TAG_LOG = "KOLEFF";
 
     private static Context appContext = null;
     private static Activity activeActivity = null;
