@@ -8,13 +8,14 @@ import android.os.Bundle;
 import android.util.Log;
 
 import androidx.lifecycle.DefaultLifecycleObserver;
+import androidx.lifecycle.ProcessLifecycleOwner;
 import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
 
 import dagger.hilt.android.HiltAndroidApp;
 
 @HiltAndroidApp
-public class KoleffApp extends MultiDexApplication { //implements DefaultLifecycleObserver
+public class KoleffApp extends MultiDexApplication implements DefaultLifecycleObserver{ //implements DefaultLifecycleObserver
 
     public static final String TAG_LOG = "KOLEFF";
 
@@ -65,6 +66,8 @@ public class KoleffApp extends MultiDexApplication { //implements DefaultLifecyc
 
         ActivityConfigurator activityConfigurator = new ActivityConfigurator();
         activityConfigurator.setupActivityListener();
+
+        ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
     }
 
     @Override
