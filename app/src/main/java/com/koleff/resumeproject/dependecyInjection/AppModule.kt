@@ -13,14 +13,14 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.util.Arrays
-import javax.inject.Inject
 import javax.inject.Singleton
+
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -30,24 +30,40 @@ object AppModule {
     private fun apiKeyAsHeader(it: Interceptor.Chain) = it.proceed(
         it.request()
             .newBuilder()
-            .addHeader("access_key", Constants.API_KEY)
+            .method(it.request().method, it.request().body)
+            .url(configureUrl())
             .build()
     )
 
-    private fun configureUrl(it: Interceptor.Chain) = it.proceed(
-        it.request()
-            .newBuilder()
-            .url(Constants.SCHEME_LOCAL + Constants.BASE_URL + "//")
-            .build()
-    )
+    private fun configureUrl() = HttpUrl.Builder()
+                .scheme(Constants.SCHEME_LOCAL)
+                .host(Constants.BASE_URL)
+                .addQueryParameter("access_key", Constants.API_KEY)
+//              .addHeader("access_key", Constants.API_KEY)
+                .build()
 
     //Local dependencies
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
         val okHttpClientBuilder = OkHttpClient.Builder()
-            .addInterceptor { apiKeyAsHeader(it) }
-            .addInterceptor { configureUrl(it) }
+//            .addInterceptor { apiKeyAsHeader(it) }
+            .addInterceptor(Interceptor { chain ->
+            val original = chain.request()
+
+            val newUrl = original.url.newBuilder()
+                .scheme(Constants.SCHEME_LOCAL)
+                .host(Constants.BASE_URL)
+                .addQueryParameter("access_key", Constants.API_KEY)
+                .build()
+
+            val request = original.newBuilder()
+                .method(original.method, original.body)
+                .url(newUrl)
+                .build()
+
+            chain.proceed(request)
+        })
 
         //Logging
         val logging = HttpLoggingInterceptor()
