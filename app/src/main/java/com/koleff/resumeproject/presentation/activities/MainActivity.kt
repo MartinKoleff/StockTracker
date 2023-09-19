@@ -3,17 +3,25 @@ package com.koleff.resumeproject.presentation.activities
 import android.view.LayoutInflater
 import android.widget.ListView
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.lifecycleScope
 import com.koleff.resumeproject.R
 import com.koleff.resumeproject.presentation.activities.base.BaseActivity
 import com.koleff.resumeproject.presentation.activities.adapters.AdapterNavigationSettings
 import com.koleff.resumeproject.presentation.activities.adapters.SettingItem
 import com.koleff.resumeproject.databinding.ActivityMainBinding
+import com.koleff.resumeproject.domain.apiServices.StockMarketApiService
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override val bindingInflater: (LayoutInflater) -> ActivityMainBinding =
         ActivityMainBinding::inflate
 
+    @Inject
+    lateinit var stockMarketApiService: StockMarketApiService
     override fun setup() = with(binding) {
 
         //Navigation drawer
@@ -33,6 +41,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         val adapterSettings = AdapterNavigationSettings(this@MainActivity, navigationSettings)
         listSettings.adapter = adapterSettings
+
+        loadStockData()
+    }
+
+    private fun loadStockData() {
+        lifecycleScope.launch {
+            stockMarketApiService.getStockData("AAPL", "2020-09-09", "2020-10-09")
+        }
     }
 
     private fun fillNavigationSettings(list: MutableList<SettingItem>) {
