@@ -1,9 +1,11 @@
 package com.koleff.resumeproject.data.repositories
 
-import com.koleff.resumeproject.data.remote.dto.StockMarketApi
+import com.koleff.resumeproject.common.Network
+import com.koleff.resumeproject.data.remote.StockMarketApi
 import com.koleff.resumeproject.domain.apiServices.models.requests.GetStockDataBody
-import com.koleff.resumeproject.domain.apiServices.models.responses.GetStockDataResponse
-import com.koleff.resumeproject.domain.apiServices.repositories.interfaces.StockMarketRepository
+import com.koleff.resumeproject.domain.repositories.StockMarketRepository
+import com.koleff.resumeproject.domain.wrappers.ResultWrapper
+import com.koleff.resumeproject.domain.wrappers.ServerResponseData
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
@@ -18,14 +20,13 @@ class StockMarketRepositoryImpl
         stockTag: String,
         dateFrom: String,
         dateTo: String
-    ): GetStockDataResponse {
+    ): ResultWrapper<ServerResponseData> {
         val request = GetStockDataBody(
             stockTag,
             dateFrom,
             dateTo
         )
 
-        //Wrap with safeApiCall...
-        return stockMarketApi.getStockData(request)
+        return Network.executeApiCall(dispatcher,{ ServerResponseData(stockMarketApi.getStockData(request)) }) //GetStockDataWrapper
     }
 }
