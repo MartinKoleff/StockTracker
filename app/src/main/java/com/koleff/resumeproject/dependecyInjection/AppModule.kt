@@ -1,6 +1,7 @@
 package com.koleff.resumeproject.dependecyInjection
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.koleff.resumeproject.BuildConfig
 import com.koleff.resumeproject.common.Constants
 import com.koleff.resumeproject.data.remote.StockMarketApi
 import com.koleff.resumeproject.data.repositories.StockMarketRepositoryImpl
@@ -14,6 +15,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.Arrays
@@ -43,10 +45,16 @@ object AppModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder()
+        val okHttpClientBuilder = OkHttpClient.Builder()
             .addInterceptor { apiKeyAsHeader(it) }
             .addInterceptor { configureUrl(it) }
-            .build()
+
+        //Logging
+        val logging = HttpLoggingInterceptor()
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+        if (BuildConfig.DEBUG) okHttpClientBuilder.addInterceptor(logging)
+
+        return okHttpClientBuilder.build()
     }
 
     @Provides
