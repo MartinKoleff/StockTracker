@@ -1,17 +1,31 @@
 package com.koleff.resumeproject.presentation.activities
 
+import android.media.Image
+import android.os.AsyncTask
+import android.util.Log
 import android.view.LayoutInflater
+import android.widget.ImageView
 import android.widget.ListView
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.lifecycleScope
+import com.koleff.resumeproject.KoleffApp
 import com.koleff.resumeproject.R
-import com.koleff.resumeproject.presentation.activities.base.BaseActivity
-import com.koleff.resumeproject.presentation.activities.adapters.AdapterNavigationSettings
-import com.koleff.resumeproject.presentation.activities.adapters.SettingItem
 import com.koleff.resumeproject.databinding.ActivityMainBinding
 import com.koleff.resumeproject.domain.apiServices.StockMarketApiService
+import com.koleff.resumeproject.presentation.activities.adapters.AdapterNavigationSettings
+import com.koleff.resumeproject.presentation.activities.adapters.SettingItem
+import com.koleff.resumeproject.presentation.activities.base.BaseActivity
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
+import org.jsoup.nodes.Element
+import org.jsoup.select.Elements
+import java.io.IOException
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -22,7 +36,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     @Inject
     lateinit var stockMarketApiService: StockMarketApiService
-    override fun setup() = with(binding) {
+    override fun setup(): Unit = with(binding) {
 
         //Navigation drawer
         containerMain.toolbar.ivNavigationDrawer.setOnClickListener {
@@ -33,21 +47,80 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
         }
 
+        val imageLogo = findViewById<ImageView>(R.id.image_logo)
+
         //Navigation settings list
         val listSettings = findViewById<ListView>(R.id.list_settings)
 
-        var navigationSettings = mutableListOf<SettingItem>()
+        val navigationSettings = mutableListOf<SettingItem>()
         fillNavigationSettings(navigationSettings)
 
         val adapterSettings = AdapterNavigationSettings(this@MainActivity, navigationSettings)
         listSettings.adapter = adapterSettings
 
-        loadStockData()
+        callRequests()
+
+//        //Web scrape test...
+        val webScrapeImageJob = lifecycleScope.async(Dispatchers.IO) {
+            webScrape("www.apple.com")
+//            webScrape("Microsoft Corporation")
+        }
+
+        lifecycleScope.launch(Dispatchers.Main) {
+            val image = webScrapeImageJob.await()
+
+            Picasso.get()
+                .load(image)
+                .into(findViewById<ImageView>(R.id.image_logo))
+        }
+
+//        lifecycleScope.launch(Dispatchers.Main) {
+//            val images = webScrapeImageJob.await()
+//
+//            for (image in images) {
+//                Log.d(KoleffApp.TAG_LOG, "Trying out image $image")
+//                Picasso.get()
+//                    .load(image)
+//                    .into(findViewById<ImageView>(R.id.image_logo))
+//
+//                delay(1000)
+//            }
+//        }
     }
 
-    private fun loadStockData() {
+//    private fun webScrape(stockCompany: String): MutableList<String> {
+//        val searchKeyword = stockCompany.plus(" logo")
+//                                        .replace(" ", "_")
+//
+//        val imageUrls: MutableList<String> = mutableListOf()
+//
+//        try {
+//            val googleSearchUrl = "https://www.google.com/search?q=site:pngegg.com $searchKeyword&tbm=isch"
+//            val document: Document = Jsoup.connect(googleSearchUrl).get()
+//
+//            // Select the image elements
+//            val imgElements: Elements = document.select("img[src]")
+//
+//            for (imgElement in imgElements) {
+//                val imgUrl: String = imgElement.absUrl("src")
+//                imageUrls.add(imgUrl)
+//            }
+//        } catch (e: IOException) {
+//            e.printStackTrace()
+//        }
+//
+//        return imageUrls
+//    }
+
+    private fun webScrape(stockCompanyWebsite: String): String? {
+        return "https://logo.clearbit.com/$stockCompanyWebsite"
+    }
+
+    private fun callRequests() {
         lifecycleScope.launch {
-            stockMarketApiService.getStockData("AAPL", "2020-09-09", "2020-10-09")
+//            stockMarketApiService.getStockData("AAPL", "2023-09-10", "2023-09-18")
+//            stockMarketApiService.getTickers()
+//            stockMarketApiService.getTicker("AAPL")
         }
     }
 
