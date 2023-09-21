@@ -6,29 +6,29 @@ import com.squareup.moshi.Json
 data class StockDataDto (
     @field:Json(name = "date")
     val date: String,
-    @field:Json(name = "symbols")
+    @Json(name = "symbol")
     val stockTag: String,
-    @field:Json(name = "exchange")
+    @Json(name = "exchange")
     val exchangeTag: String,
-    @field:Json(name = "open")
+    @Json(name = "open")
     val openPrice: Double,
-    @field:Json(name = "close")
+    @Json(name = "close")
     val closePrice: Double,
-    @field:Json(name = "high")
+    @Json(name = "high")
     val highPrice: Double,
-    @field:Json(name = "low")
+    @Json(name = "low")
     val lowPrice: Double,
     @field:Json(name = "volume")
     val volume: Double,
-    @field:Json(name = "adj_open")
+    @Json(name = "adj_open")
     val adjustOpenPrice: Double,
-    @field:Json(name = "adj_close")
+    @Json(name = "adj_close")
     val adjustClosePrice: Double,
-    @field:Json(name = "adj_high")
+    @Json(name = "adj_high")
     val adjustHighPrice: Double,
-    @field:Json(name = "adj_low")
+    @Json(name = "adj_low")
     val adjustLowPrice: Double,
-    @field:Json(name = "adj_volume")
+    @Json(name = "adj_volume")
     val adjustVolume: Double
 )
 

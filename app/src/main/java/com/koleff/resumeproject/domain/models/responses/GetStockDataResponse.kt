@@ -6,8 +6,8 @@ import com.koleff.resumeproject.domain.models.responses.baseResponse.BaseRespons
 import com.squareup.moshi.Json
 
 data class GetStockDataResponse (
-    @field:Json(name = "pagination")
-    val pagination: PaginationDataDto,
-    @field:Json(name = "data")
-    val data: List<StockDataDto>,
+    @Json(name = "pagination")
+    val paginationData: PaginationDataDto,
+    @Json(name = "data")
+    val stockData: List<StockDataDto>,
 ): BaseResponse()

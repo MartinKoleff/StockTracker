@@ -2,7 +2,8 @@ package com.koleff.resumeproject.domain.wrappers
 
 import com.koleff.resumeproject.domain.models.responses.GetStockDataResponse
 
-class GetStockDataWrapper(getStockDataResponse: GetStockDataResponse):
+class GetStockDataWrapper(getStockDataResponse: GetStockDataResponse) :
     ServerResponseData(getStockDataResponse) {
-        val data = getStockDataResponse.data
+    val stockData = getStockDataResponse.stockData
+    val paginationData = getStockDataResponse.paginationData
 }
