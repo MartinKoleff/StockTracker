@@ -26,6 +26,7 @@ enum class Error(
     var errorType: ErrorType,
     var originalErrorMessage: String? = "",
     var originalErrorCode: Int = 1) {
+
     OK(0, R.string.text_success, ErrorType.SUCCESS),
     GENERIC(-1, R.string.text_internal_exception, ErrorType.INTERNAL);
 

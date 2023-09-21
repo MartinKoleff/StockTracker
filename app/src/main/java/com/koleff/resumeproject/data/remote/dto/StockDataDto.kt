@@ -1,6 +1,6 @@
 package com.koleff.resumeproject.data.remote.dto
 
-import com.koleff.resumeproject.domain.apiServices.wrappers.StockData
+import com.koleff.resumeproject.domain.wrappers.StockData
 import com.squareup.moshi.Json
 
 data class StockDataDto (
@@ -29,9 +29,9 @@ data class StockDataDto (
     @field:Json(name = "adj_low")
     val adjustLowPrice: Double,
     @field:Json(name = "adj_volume")
-    val adjustVolume: Double,
+    val adjustVolume: Double
 )
 
-fun StockDataDto.toStockData(stockDataDto: StockDataDto): StockData{
+fun StockDataDto.toStockData(stockDataDto: StockDataDto): StockData {
     return StockData(stockDataDto)
 }

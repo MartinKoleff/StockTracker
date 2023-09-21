@@ -1,4 +1,4 @@
-package com.koleff.resumeproject.domain.apiServices.wrappers
+package com.koleff.resumeproject.domain.wrappers
 
 import com.koleff.resumeproject.data.remote.dto.StockDataDto
 

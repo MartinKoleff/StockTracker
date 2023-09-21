@@ -20,7 +20,7 @@ object Network {
                 if (apiResult.isSuccessful) {
                     ResultWrapper.Success(apiResult)
                 } else {
-                    ResultWrapper.Error(apiResult, "error message")
+                    ResultWrapper.Error(apiResult, apiResult.errorMessage)
                 }
             } catch (throwable: Throwable) {
                 throwable.printStackTrace()
@@ -44,7 +44,7 @@ object Network {
         return if (unsuccessfulRetriesCount < MAX_RETRY_COUNT) {
             executeApiCall(dispatcher, apiCall, unsuccessfulRetriesCount + 1)
         } else {
-            ResultWrapper.Error(apiResult, "error")
+            ResultWrapper.Error(apiResult, apiResult?.errorMessage)
         }
     }
 }
