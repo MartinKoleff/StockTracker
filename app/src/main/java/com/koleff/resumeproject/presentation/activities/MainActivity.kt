@@ -10,6 +10,7 @@ import androidx.core.view.GravityCompat
 import androidx.lifecycle.lifecycleScope
 import com.koleff.resumeproject.KoleffApp
 import com.koleff.resumeproject.R
+import com.koleff.resumeproject.common.UIUtils
 import com.koleff.resumeproject.databinding.ActivityMainBinding
 import com.koleff.resumeproject.domain.apiServices.StockMarketApiService
 import com.koleff.resumeproject.presentation.activities.adapters.AdapterNavigationSettings
@@ -47,8 +48,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
         }
 
-        val imageLogo = findViewById<ImageView>(R.id.image_logo)
-
         //Navigation settings list
         val listSettings = findViewById<ListView>(R.id.list_settings)
 
@@ -59,62 +58,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         listSettings.adapter = adapterSettings
 
         callRequests()
-
-//        //Web scrape test...
-        val webScrapeImageJob = lifecycleScope.async(Dispatchers.IO) {
-            webScrape("www.apple.com")
-//            webScrape("Microsoft Corporation")
-        }
-
-        lifecycleScope.launch(Dispatchers.Main) {
-            val image = webScrapeImageJob.await()
-
-            Picasso.get()
-                .load(image)
-                .into(findViewById<ImageView>(R.id.image_logo))
-        }
-
-//        lifecycleScope.launch(Dispatchers.Main) {
-//            val images = webScrapeImageJob.await()
-//
-//            for (image in images) {
-//                Log.d(KoleffApp.TAG_LOG, "Trying out image $image")
-//                Picasso.get()
-//                    .load(image)
-//                    .into(findViewById<ImageView>(R.id.image_logo))
-//
-//                delay(1000)
-//            }
-//        }
     }
 
-//    private fun webScrape(stockCompany: String): MutableList<String> {
-//        val searchKeyword = stockCompany.plus(" logo")
-//                                        .replace(" ", "_")
-//
-//        val imageUrls: MutableList<String> = mutableListOf()
-//
-//        try {
-//            val googleSearchUrl = "https://www.google.com/search?q=site:pngegg.com $searchKeyword&tbm=isch"
-//            val document: Document = Jsoup.connect(googleSearchUrl).get()
-//
-//            // Select the image elements
-//            val imgElements: Elements = document.select("img[src]")
-//
-//            for (imgElement in imgElements) {
-//                val imgUrl: String = imgElement.absUrl("src")
-//                imageUrls.add(imgUrl)
-//            }
-//        } catch (e: IOException) {
-//            e.printStackTrace()
-//        }
-//
-//        return imageUrls
-//    }
-
-    private fun webScrape(stockCompanyWebsite: String): String? {
-        return "https://logo.clearbit.com/$stockCompanyWebsite"
-    }
 
     private fun callRequests() {
         lifecycleScope.launch {
