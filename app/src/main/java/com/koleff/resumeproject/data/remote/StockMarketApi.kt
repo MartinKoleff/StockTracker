@@ -11,7 +11,6 @@ interface StockMarketApi {
         @Query("symbols") symbols: String,
         @Query("date_from") dateFrom: String,
         @Query("date_to") dateTo: String,
-//        @Body body: GetStockDataBody
     ): GetStockDataResponse
 }
 

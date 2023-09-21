@@ -47,23 +47,22 @@ object AppModule {
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
         val okHttpClientBuilder = OkHttpClient.Builder()
-//            .addInterceptor { apiKeyAsHeader(it) }
             .addInterceptor(Interceptor { chain ->
-            val original = chain.request()
+                val original = chain.request()
 
-            val newUrl = original.url.newBuilder()
-                .scheme(Constants.SCHEME_LOCAL)
-                .host(Constants.BASE_URL)
-                .addQueryParameter("access_key", Constants.API_KEY)
-                .build()
+                val newUrl = original.url.newBuilder()
+                    .scheme(Constants.SCHEME_LOCAL)
+                    .host(Constants.BASE_URL)
+                    .addQueryParameter("access_key", Constants.API_KEY)
+                    .build()
 
-            val request = original.newBuilder()
-                .method(original.method, original.body)
-                .url(newUrl)
-                .build()
+                val request = original.newBuilder()
+                    .method(original.method, original.body)
+                    .url(newUrl)
+                    .build()
 
-            chain.proceed(request)
-        })
+                chain.proceed(request)
+            })
 
         //Logging
         val logging = HttpLoggingInterceptor()
