@@ -1,7 +1,12 @@
 package com.koleff.resumeproject.domain.wrappers
 
-sealed class ResultWrapper <T> (val data: T? = null, val message: String? = null){
-    class Success<T>(data: T) : ResultWrapper<T>(data)
-    class Error<T>(data: T? = null, message: String?) : ResultWrapper<T>(data, message)
-    class Loading<T>(data: T? = null) : ResultWrapper<T>(data)
+import com.koleff.resumeproject.domain.models.responses.baseResponse.BaseResponseError
+
+sealed class ResultWrapper<out T>{
+    class Success<out T>(val data: T) : ResultWrapper<T>()
+    class KoleffError<out T>(
+        val error: Error? = null,
+        val errorMessage: String? = null,
+        val value: T? = null) : ResultWrapper<T>()
+    class Loading<out T>(val data: T? = null) : ResultWrapper<T>()
 }

@@ -17,8 +17,8 @@ class StockMarketApiService @Inject constructor(
         val data = stockMarketRepository.getStockData(stockTag, dateFrom, dateTo)
 
         when (data){
-            is ResultWrapper.Error -> {
-                Log.d(KoleffApp.TAG_LOG, data.message.toString())
+            is ResultWrapper.KoleffError -> {
+                Log.d(KoleffApp.TAG_LOG, data.errorMessage.toString())
             }
             is ResultWrapper.Loading -> TODO()
             is ResultWrapper.Success -> TODO()

@@ -20,9 +20,13 @@ object Network {
                 if (apiResult.isSuccessful) {
                     ResultWrapper.Success(apiResult)
                 } else {
-                    ResultWrapper.Error(apiResult, apiResult.errorMessage)
+                    ResultWrapper.KoleffError(
+                        apiResult.error,
+                        apiResult.errorMessage,
+                        apiResult
+                    )
                 }
-            } catch (throwable: Throwable) {
+            }catch (throwable: Throwable) {
                 throwable.printStackTrace()
                 doRetryCall(
                     dispatcher,
@@ -44,7 +48,11 @@ object Network {
         return if (unsuccessfulRetriesCount < MAX_RETRY_COUNT) {
             executeApiCall(dispatcher, apiCall, unsuccessfulRetriesCount + 1)
         } else {
-            ResultWrapper.Error(apiResult, apiResult?.errorMessage)
+            ResultWrapper.KoleffError(
+                apiResult?.error,
+                apiResult?.errorMessage,
+                apiResult
+            )
         }
     }
 }
