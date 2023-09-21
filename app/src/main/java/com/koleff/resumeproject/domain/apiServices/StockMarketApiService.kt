@@ -14,14 +14,16 @@ class StockMarketApiService @Inject constructor(
         dateFrom: String,
         dateTo: String
     ) {
-        val data = stockMarketRepository.getStockData(stockTag, dateFrom, dateTo)
+        val apiResult = stockMarketRepository.getStockData(stockTag, dateFrom, dateTo)
 
-        when (data){
+        when (apiResult){
             is ResultWrapper.KoleffError -> {
-                Log.d(KoleffApp.TAG_LOG, data.errorMessage.toString())
+                Log.d(KoleffApp.TAG_LOG, apiResult.errorMessage.toString())
             }
             is ResultWrapper.Loading -> TODO()
-            is ResultWrapper.Success -> TODO()
+            is ResultWrapper.Success -> {
+                Log.d(KoleffApp.TAG_LOG, apiResult.data.stockData.toString()) 
+            }
         }
     }
 }
