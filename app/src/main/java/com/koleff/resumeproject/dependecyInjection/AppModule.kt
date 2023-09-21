@@ -26,22 +26,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    //OkHttpClient configurations
-    private fun apiKeyAsHeader(it: Interceptor.Chain) = it.proceed(
-        it.request()
-            .newBuilder()
-            .method(it.request().method, it.request().body)
-            .url(configureUrl())
-            .build()
-    )
-
-    private fun configureUrl() = HttpUrl.Builder()
-                .scheme(Constants.SCHEME_LOCAL)
-                .host(Constants.BASE_URL)
-                .addQueryParameter("access_key", Constants.API_KEY)
-//              .addHeader("access_key", Constants.API_KEY)
-                .build()
-
     //Local dependencies
     @Provides
     @Singleton
@@ -83,11 +67,7 @@ object AppModule {
     //Global dependencies
     @Provides
     @Singleton
-    fun provideStockMarketApi(): StockMarketApi {
-        val okHttpClient: OkHttpClient = provideOkHttpClient() //inject somehow?
-
-        val moshi: Moshi = provideMoshi() //inject somehow?
-
+    fun provideStockMarketApi(okHttpClient: OkHttpClient, moshi: Moshi): StockMarketApi {
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_LOCAL_URL)
             .client(okHttpClient)
