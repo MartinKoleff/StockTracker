@@ -6,7 +6,7 @@ import com.squareup.moshi.Json
 
 data class GetStockDataResponse (
     @field:Json(name = "pagination")
-    val paginationData: PaginationDataDto,
+    val pagination: PaginationDataDto,
     @field:Json(name = "data")
     val data: List<StockDataDto>,
 ): BaseResponse()
