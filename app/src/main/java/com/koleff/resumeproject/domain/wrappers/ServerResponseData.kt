@@ -11,7 +11,7 @@ open class ServerResponseData(
 ) {
 
     constructor(response: BaseResponse?) : this(
-        isSuccessful = response?.error == null,
+        isSuccessful = response?.isSuccessful ?: false || response?.error == null,
         error = Error.fromErrorCode(response?.error?.code).also {
             it.originalErrorMessage = response?.error?.message
             it.originalErrorCode = response?.error?.code
