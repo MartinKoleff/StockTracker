@@ -22,12 +22,12 @@ class StockMarketRepositoryImpl
         dateFrom: String,
         dateTo: String
     ): ResultWrapper<GetStockDataWrapper> {
-        val request = GetStockDataBody(
-            stockTag,
-            dateFrom,
-            dateTo
-        )
-
+//        val request = GetStockDataBody(
+//            stockTag,
+//            dateFrom,
+//            dateTo
+//        )
+//        stockMarketApi.getStockData(request)
         return Network.executeApiCall(dispatcher,
             {
                 GetStockDataWrapper(
@@ -37,6 +37,6 @@ class StockMarketRepositoryImpl
                         dateTo
                     )
                 )
-            }) //stockMarketApi.getStockData(request)
+            })
     }
 }
