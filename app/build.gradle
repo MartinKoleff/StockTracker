@@ -111,6 +111,9 @@ dependencies {
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    //AnyChart
+    implementation 'com.github.AnyChart:AnyChart-Android:1.1.5'
+
     //JUnit
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
