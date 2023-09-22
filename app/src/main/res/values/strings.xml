@@ -15,4 +15,7 @@
     <string name="text_not_found">Resource not found.</string>
     <string name="text_usage_limit_reached">The given user account has reached its monthly allowed request volume.</string>
     <string name="text_rate_limit_reached">\tThe given user account has reached the rate limit.</string>
+    <string name="text_dashboard">Dashboard</string>
+    <string name="text_search">Search</string>
+    <string name="text_favourites">Favourites</string>
 </resources>
