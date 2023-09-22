@@ -14,6 +14,14 @@ plugins {
     id 'com.google.dagger.hilt.android' version '2.48' apply false
 }
 
+allprojects{
+    repositories {
+        mavenCentral()
+        google()
+        maven { url 'https://jitpack.io' }
+    }
+}
+
 ext {
     var = 'com.koleff.resumeproject'
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
