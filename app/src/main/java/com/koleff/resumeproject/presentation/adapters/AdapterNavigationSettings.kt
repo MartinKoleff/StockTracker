@@ -1,4 +1,4 @@
-package com.koleff.resumeproject.adapters
+package com.koleff.resumeproject.presentation.activities.adapters
 
 import android.app.Activity
 import android.content.Context
@@ -13,7 +13,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.koleff.resumeproject.KoleffApp
 import com.koleff.resumeproject.R
-import com.koleff.resumeproject.types.KoleffFonts
+import com.koleff.resumeproject.common.types.KoleffFonts
 
 
 class AdapterNavigationSettings(
