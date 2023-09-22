@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_alignParentBottom="true">
+
+    <item
+        android:id="@+id/dashboard"
+        android:title="@string/text_dashboard"
+        android:icon="@drawable/ic_home"/>
+
+    <item android:id="@+id/placeholder"
+        android:title="" />
+
+    <item
+        android:id="@+id/settings"
+        android:title="@string/text_favourites"
+        android:icon="@drawable/ic_star"/>
+
+</menu>

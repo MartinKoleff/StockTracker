@@ -57,6 +57,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         val adapterSettings = AdapterNavigationSettings(this@MainActivity, navigationSettings)
         listSettings.adapter = adapterSettings
 
+        //Bottom navigation bar
+        containerMain.bottomNavigationBar.bottomNavigationView.background = null
+        containerMain.bottomNavigationBar.bottomNavigationView.menu.getItem(1).isEnabled = false
+
         callRequests()
     }
 

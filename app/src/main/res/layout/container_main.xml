@@ -10,4 +10,8 @@
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
 
+        <include
+            android:id="@+id/bottom_navigation_bar"
+            layout="@layout/bottom_navigation_bar" />
+
 </RelativeLayout>
