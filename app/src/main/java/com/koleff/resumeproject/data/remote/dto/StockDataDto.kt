@@ -35,8 +35,8 @@ data class StockDataDto (
     @field:Json(name = "dividend")
     val dividend: Double
 
-)
-
-fun StockDataDto.toStockData(stockDataDto: StockDataDto): StockData {
-    return StockData(stockDataDto)
+){
+    fun toStockData(): StockData {
+        return StockData(this)
+    }
 }
