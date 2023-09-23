@@ -20,7 +20,7 @@ object Network {
                 if (apiResult.isSuccessful) {
                     ResultWrapper.Success(apiResult)
                 } else {
-                    ResultWrapper.KoleffError(
+                    ResultWrapper.ApiError(
                         apiResult.error,
                         apiResult.errorMessage,
                         apiResult
@@ -48,7 +48,7 @@ object Network {
         return if (unsuccessfulRetriesCount < MAX_RETRY_COUNT) {
             executeApiCall(dispatcher, apiCall, unsuccessfulRetriesCount + 1)
         } else {
-            ResultWrapper.KoleffError(
+            ResultWrapper.ApiError(
                 apiResult?.error,
                 apiResult?.errorMessage,
                 apiResult
