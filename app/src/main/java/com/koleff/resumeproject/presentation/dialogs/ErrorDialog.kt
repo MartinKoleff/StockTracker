@@ -21,28 +21,11 @@ import showUnique
 
 typealias ErrorDialogListener = (ErrorDialog) -> Unit
 
-class ErrorDialog : AppCompatDialogFragment() {
-
-    private var builder: Builder? = null
-
-    private var _binding: DialogErrorBinding? = null
-
-    val binding
-        get() = _binding!!
-
+class ErrorDialog: BaseDialog() {
+    private var builder: ErrorDialog.Builder? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NO_TITLE, R.style.error_dialog)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = DialogErrorBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -97,11 +80,6 @@ class ErrorDialog : AppCompatDialogFragment() {
             if (!titleVisible)
                 binding.tvTitle.visibility = View.GONE
         }
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
     }
 
     override fun onCancel(dialog: DialogInterface) {
