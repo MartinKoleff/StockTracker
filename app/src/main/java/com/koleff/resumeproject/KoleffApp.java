@@ -1,7 +1,6 @@
 package com.koleff.resumeproject;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,7 +14,7 @@ import androidx.multidex.MultiDexApplication;
 import dagger.hilt.android.HiltAndroidApp;
 
 @HiltAndroidApp
-public class KoleffApp extends MultiDexApplication implements DefaultLifecycleObserver{ //implements DefaultLifecycleObserver
+public class KoleffApp extends MultiDexApplication implements DefaultLifecycleObserver{
 
     public static final String TAG_LOG = "KOLEFF";
 
