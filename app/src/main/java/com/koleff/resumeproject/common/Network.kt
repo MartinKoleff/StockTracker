@@ -1,7 +1,7 @@
 package com.koleff.resumeproject.common
 
-import com.koleff.resumeproject.domain.wrappers.ResultWrapper
-import com.koleff.resumeproject.domain.wrappers.ServerResponseData
+import com.koleff.resumeproject.domain.wrappers.networkWrappers.ResultWrapper
+import com.koleff.resumeproject.domain.wrappers.networkWrappers.ServerResponseData
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
