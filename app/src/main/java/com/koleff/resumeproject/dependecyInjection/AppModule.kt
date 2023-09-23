@@ -2,7 +2,8 @@ package com.koleff.resumeproject.dependecyInjection
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.koleff.resumeproject.BuildConfig
-import com.koleff.resumeproject.common.Constants
+import com.koleff.resumeproject.common.types.Constants
+import com.koleff.resumeproject.common.managers.DataManager
 import com.koleff.resumeproject.data.remote.StockMarketApi
 import com.koleff.resumeproject.data.repositories.StockMarketRepositoryImpl
 import com.koleff.resumeproject.domain.apiServices.StockMarketApiService
@@ -13,7 +14,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -36,7 +36,7 @@ object AppModule {
 
                 val newUrl = original.url.newBuilder()
                     .scheme(Constants.SCHEME_LOCAL)
-                    .host(Constants.BASE_URL)
+                    .host(DataManager.apiUrl)
                     .addQueryParameter("access_key", Constants.API_KEY)
                     .build()
 

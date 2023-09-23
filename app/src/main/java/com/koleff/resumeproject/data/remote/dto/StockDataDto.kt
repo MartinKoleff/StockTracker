@@ -29,9 +29,14 @@ data class StockDataDto (
     @Json(name = "adj_low")
     val adjustLowPrice: Double,
     @Json(name = "adj_volume")
-    val adjustVolume: Double
-)
+    val adjustVolume: Double,
+    @Json(name = "split_factor")
+    val splitFactor: Double,
+    @field:Json(name = "dividend")
+    val dividend: Double
 
-fun StockDataDto.toStockData(stockDataDto: StockDataDto): StockData {
-    return StockData(stockDataDto)
+){
+    fun toStockData(): StockData {
+        return StockData(this)
+    }
 }

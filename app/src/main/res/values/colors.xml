@@ -9,4 +9,12 @@
 
     <color name="colorPositive">#68d391</color>
     <color name="colorNegative">#e53e3e</color>
+
+    <color name="defaultProgressColor">#007aff</color>
+
+    <color name="iceBlue">#edf2f7</color>
+
+    <color name="ios_red">#FFB8433A</color>
+    <color name="ios_grey">#FF7B7B88</color>
+    <color name="ios_bg">#FFE9E9E9</color>
 </resources>
