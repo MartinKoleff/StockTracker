@@ -6,16 +6,13 @@ import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Parcelable
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentActivity
 import com.koleff.resumeproject.R
-import com.koleff.resumeproject.databinding.DialogErrorBinding
 import com.koleff.resumeproject.domain.wrappers.networkWrappers.KoleffError
+import com.koleff.resumeproject.presentation.dialogs.base.BaseDialog
 import kotlinx.parcelize.Parcelize
 import showUnique
 

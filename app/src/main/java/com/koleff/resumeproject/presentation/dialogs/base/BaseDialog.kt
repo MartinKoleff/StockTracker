@@ -1,4 +1,4 @@
-package com.koleff.resumeproject.presentation.dialogs
+package com.koleff.resumeproject.presentation.dialogs.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
