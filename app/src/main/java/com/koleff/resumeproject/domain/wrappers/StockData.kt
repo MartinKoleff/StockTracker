@@ -17,6 +17,8 @@ data class StockData (val stockDataDto: StockDataDto){
     val adjustHighPrice = stockDataDto.adjustHighPrice
     val adjustLowPrice = stockDataDto.adjustLowPrice
     val adjustVolume = stockDataDto.adjustVolume
+    val splitFactor = stockDataDto.splitFactor
+    val dividend = stockDataDto.dividend
     val isRising: Boolean = stockDataDto.openPrice - stockDataDto.closePrice > 0
     val dayDifference: Double = stockDataDto.openPrice - stockDataDto.closePrice
     val changePercent: Double = stockDataDto.openPrice / dayDifference * 100
