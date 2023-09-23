@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.activities.MainActivity">
 
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <include
+        android:id="@+id/bottom_navigation_bar"
+        layout="@layout/bottom_navigation_bar" />
+
+    <FrameLayout
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:id="@+id/container_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_alignParentBottom="true"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/main_activity_navigation">
 
         <include
-            android:id="@+id/bottom_navigation_bar"
-            layout="@layout/bottom_navigation_bar"/>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            app:defaultNavHost="true"
-            app:navGraph="@navigation/main_activity_navigation"
-
-            android:layout_below="@id/toolbar"
-            android:layout_alignParentBottom="true">
-        </FrameLayout>
-
-<!--        android:layout_above="@id/bottom_navigation_bar"-->
-
+            android:id="@+id/fragment_dashboard"
+            layout="@layout/fragment_dashboard" />
+    </FrameLayout>
 </RelativeLayout>
