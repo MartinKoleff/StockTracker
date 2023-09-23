@@ -18,4 +18,11 @@
     <string name="text_dashboard">Dashboard</string>
     <string name="text_search">Search</string>
     <string name="text_favourites">Favourites</string>
+    <string name="text_oops_something_went_wrong">Something went wrong. Please contact the support!</string>
+    <string name="text_ok">OK</string>
+    <string name="text_yes">Yes</string>
+    <string name="text_error">Error</string>
+    <string name="text_cancel">Cancel</string>
+    <string name="text_try_again">Try again</string>
+    <string name="text_cannot_establish_connection_with_servers">The application cannot establish a connection with our servers. Please check if you are connected to the internet and try again later.</string>
 </resources>

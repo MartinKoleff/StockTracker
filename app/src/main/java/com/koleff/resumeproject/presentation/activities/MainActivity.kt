@@ -1,32 +1,17 @@
 package com.koleff.resumeproject.presentation.activities
 
-import android.media.Image
-import android.os.AsyncTask
-import android.util.Log
 import android.view.LayoutInflater
-import android.widget.ImageView
 import android.widget.ListView
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.lifecycleScope
-import com.koleff.resumeproject.KoleffApp
 import com.koleff.resumeproject.R
-import com.koleff.resumeproject.common.UIUtils
 import com.koleff.resumeproject.databinding.ActivityMainBinding
 import com.koleff.resumeproject.domain.apiServices.StockMarketApiService
 import com.koleff.resumeproject.presentation.activities.adapters.AdapterNavigationSettings
 import com.koleff.resumeproject.presentation.activities.adapters.SettingItem
 import com.koleff.resumeproject.presentation.activities.base.BaseActivity
-import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
-import org.jsoup.nodes.Element
-import org.jsoup.select.Elements
-import java.io.IOException
 import javax.inject.Inject
 
 @AndroidEntryPoint

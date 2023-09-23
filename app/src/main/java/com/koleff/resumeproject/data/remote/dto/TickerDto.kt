@@ -1,5 +1,7 @@
 package com.koleff.resumeproject.data.remote.dto
 
+import com.koleff.resumeproject.domain.wrappers.StockData
+import com.koleff.resumeproject.domain.wrappers.TickerData
 import com.squareup.moshi.Json
 
 data class TickerDto(
@@ -15,4 +17,9 @@ data class TickerDto(
     val stockExchange: StockExchange,
     @Json(name = "symbol")
     val stockTag: String
-)
+){
+    fun toTickerData(): TickerData {
+        return TickerData(this)
+    }
+}
+

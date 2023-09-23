@@ -1,7 +1,7 @@
 package com.koleff.resumeproject.common
 
-import com.koleff.resumeproject.domain.wrappers.ResultWrapper
-import com.koleff.resumeproject.domain.wrappers.ServerResponseData
+import com.koleff.resumeproject.domain.wrappers.networkWrappers.ResultWrapper
+import com.koleff.resumeproject.domain.wrappers.networkWrappers.ServerResponseData
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
@@ -20,7 +20,7 @@ object Network {
                 if (apiResult.isSuccessful) {
                     ResultWrapper.Success(apiResult)
                 } else {
-                    ResultWrapper.KoleffError(
+                    ResultWrapper.ApiError(
                         apiResult.error,
                         apiResult.errorMessage,
                         apiResult
@@ -48,7 +48,7 @@ object Network {
         return if (unsuccessfulRetriesCount < MAX_RETRY_COUNT) {
             executeApiCall(dispatcher, apiCall, unsuccessfulRetriesCount + 1)
         } else {
-            ResultWrapper.KoleffError(
+            ResultWrapper.ApiError(
                 apiResult?.error,
                 apiResult?.errorMessage,
                 apiResult
