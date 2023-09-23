@@ -1,6 +1,6 @@
-package com.koleff.resumeproject.common
+package com.koleff.resumeproject.presentation.dialogs
 
-import UIUtils
+import com.koleff.resumeproject.common.utils.UIUtils
 import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Color

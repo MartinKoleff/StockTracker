@@ -1,4 +1,4 @@
-package com.koleff.resumeproject.common
+package com.koleff.resumeproject.common.types
 
 object Constants {
     const val API_KEY = "38759d046e883748e2947cc8a1bd4665"

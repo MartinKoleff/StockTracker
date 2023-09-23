@@ -2,8 +2,8 @@ package com.koleff.resumeproject.dependecyInjection
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.koleff.resumeproject.BuildConfig
-import com.koleff.resumeproject.common.Constants
-import com.koleff.resumeproject.common.DataManager
+import com.koleff.resumeproject.common.types.Constants
+import com.koleff.resumeproject.common.managers.DataManager
 import com.koleff.resumeproject.data.remote.StockMarketApi
 import com.koleff.resumeproject.data.repositories.StockMarketRepositoryImpl
 import com.koleff.resumeproject.domain.apiServices.StockMarketApiService

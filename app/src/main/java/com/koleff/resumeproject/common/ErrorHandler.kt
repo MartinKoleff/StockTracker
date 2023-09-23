@@ -4,6 +4,7 @@ import android.app.Activity
 import com.koleff.resumeproject.KoleffApp
 import com.koleff.resumeproject.R
 import com.koleff.resumeproject.domain.wrappers.networkWrappers.KoleffError
+import com.koleff.resumeproject.presentation.dialogs.ErrorDialog
 import java.lang.ref.WeakReference
 
 object ErrorHandler {
