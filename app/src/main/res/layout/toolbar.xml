@@ -30,7 +30,6 @@
         android:gravity="center"
         android:maxLines="2"
         android:text="@string/text_tittle"
-        android:layout_marginStart="54dp"
         android:textColor="@color/textPrimary"
         android:layout_centerVertical="true"
         android:textSize="20sp" />
@@ -43,7 +42,7 @@
         android:scaleType="center"
         app:srcCompat="@drawable/ic_refresh"
         android:layout_centerVertical="true"
-        android:layout_toStartOf="@+id/ivRightAction"/>
+        android:layout_alignParentEnd="true" />
 
     <ImageView
         android:id="@+id/ivRightAction"
@@ -53,7 +52,8 @@
         android:scaleType="center"
         app:srcCompat="@drawable/ic_settings"
         android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:visibility="gone"/>
 
 </RelativeLayout>
 
