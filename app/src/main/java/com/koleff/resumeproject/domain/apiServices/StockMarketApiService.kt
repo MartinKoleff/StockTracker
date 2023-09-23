@@ -3,6 +3,7 @@ package com.koleff.resumeproject.domain.apiServices
 import android.util.Log
 import com.koleff.resumeproject.KoleffApp
 import com.koleff.resumeproject.common.DataManager
+import com.koleff.resumeproject.common.ErrorHandler
 import com.koleff.resumeproject.data.remote.dto.StockDataDto
 import com.koleff.resumeproject.data.remote.dto.TickerDto
 import com.koleff.resumeproject.domain.repositories.StockMarketRepository
@@ -22,6 +23,10 @@ class StockMarketApiService @Inject constructor(
 
         when (apiResult) {
             is ResultWrapper.ApiError -> {
+                ErrorHandler.showError(
+                    apiResult.error,
+                    apiResult.errorMessage
+                )
             }
 
             is ResultWrapper.Loading -> TODO()
@@ -39,6 +44,10 @@ class StockMarketApiService @Inject constructor(
 
         when (apiResult) {
             is ResultWrapper.ApiError -> {
+                ErrorHandler.showError(
+                    apiResult.error,
+                    apiResult.errorMessage
+                )
             }
 
             is ResultWrapper.Loading -> TODO()
@@ -56,6 +65,10 @@ class StockMarketApiService @Inject constructor(
 
         when (apiResult) {
             is ResultWrapper.ApiError -> {
+                ErrorHandler.showError(
+                    apiResult.error,
+                    apiResult.errorMessage
+                )
             }
 
             is ResultWrapper.Loading -> TODO()
