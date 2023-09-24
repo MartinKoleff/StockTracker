@@ -1,27 +1,20 @@
 package com.koleff.resumeproject.presentation.activities
 
 import android.view.LayoutInflater
-import android.view.View
-import android.widget.ImageView
 import android.widget.ListView
+import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.koleff.resumeproject.R
-import com.koleff.resumeproject.common.navigation.FragmentType
-import com.koleff.resumeproject.common.navigation.NavigationManager
 import com.koleff.resumeproject.databinding.ActivityMainBinding
 import com.koleff.resumeproject.presentation.activities.adapters.AdapterNavigationSettings
 import com.koleff.resumeproject.presentation.activities.adapters.SettingItem
 import com.koleff.resumeproject.presentation.activities.base.BaseActivity
-import com.koleff.resumeproject.presentation.fragments.DashboardFragmentDirections
-import com.koleff.resumeproject.presentation.fragments.FavouritesFragmentDirections
+import com.koleff.resumeproject.presentation.viewModels.StockMarketViewModel
+import com.koleff.resumeproject.presentation.viewModels.TickerViewModel
+import com.koleff.resumeproject.presentation.viewModels.TickersViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -61,16 +54,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         val navController = navHostFragment.navController
         containerMain.bottomNavigationBar.bottomNavigationView.setupWithNavController(navController)
 
-//        callRequests()
+        //ViewModels
+        val stockMarketViewModel: StockMarketViewModel by viewModels()
+        val tickersViewModel: TickersViewModel by viewModels()
+        val tickerViewModel: TickerViewModel by viewModels()
+
     }
 
-    private fun callRequests() {
-        lifecycleScope.launch {
-//            stockMarketApiService.getStockData("AAPL", "2023-09-10", "2023-09-18")
-//            stockMarketApiService.getTickers()
-//            stockMarketApiService.getTicker("AAPL")
-        }
-    }
 
     private fun fillNavigationSettings(list: MutableList<SettingItem>) {
         list.add(SettingItem(SettingItem.id_language, resources.getString(R.string.text_language), R.drawable.ic_language))
