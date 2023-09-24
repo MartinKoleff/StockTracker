@@ -3,6 +3,8 @@ package com.koleff.resumeproject.common
 import com.koleff.resumeproject.domain.wrappers.networkWrappers.ResultWrapper
 import com.koleff.resumeproject.domain.wrappers.networkWrappers.ServerResponseData
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 
 object Network {
@@ -12,28 +14,34 @@ object Network {
         dispatcher: CoroutineDispatcher,
         apiCall: suspend () -> T,
         unsuccessfulRetriesCount: Int = 0
-    ): ResultWrapper<T> where T : ServerResponseData {
+    ): Flow<ResultWrapper<T>> where T : ServerResponseData {
         return withContext(dispatcher) {
-            try {
-                val apiResult = apiCall.invoke()
+            flow {
+                try {
+                    emit(ResultWrapper.Loading())
 
-                if (apiResult.isSuccessful) {
-                    ResultWrapper.Success(apiResult)
-                } else {
-                    ResultWrapper.ApiError(
-                        apiResult.error,
-                        apiResult.errorMessage,
-                        apiResult
+                    val apiResult = apiCall.invoke()
+
+                    if (apiResult.isSuccessful) {
+                        emit(ResultWrapper.Success(apiResult))
+                    } else {
+                        emit(
+                            ResultWrapper.ApiError(
+                                apiResult.error,
+                                apiResult.errorMessage,
+                                apiResult
+                            )
+                        )
+                    }
+                } catch (throwable: Throwable) {
+                    throwable.printStackTrace()
+                    doRetryCall(
+                        dispatcher,
+                        apiCall,
+                        null,
+                        unsuccessfulRetriesCount
                     )
                 }
-            }catch (throwable: Throwable) {
-                throwable.printStackTrace()
-                doRetryCall(
-                    dispatcher,
-                    apiCall,
-                    null,
-                    unsuccessfulRetriesCount
-                )
             }
         }
     }
@@ -43,15 +51,16 @@ object Network {
         apiCall: suspend () -> T,
         apiResult: T?,
         unsuccessfulRetriesCount: Int = 0
-    ): ResultWrapper<T> where T : ServerResponseData {
-
-        return if (unsuccessfulRetriesCount < MAX_RETRY_COUNT) {
+    ): Flow<ResultWrapper<T>> where T : ServerResponseData = flow {
+        if (unsuccessfulRetriesCount < MAX_RETRY_COUNT) {
             executeApiCall(dispatcher, apiCall, unsuccessfulRetriesCount + 1)
         } else {
-            ResultWrapper.ApiError(
-                apiResult?.error,
-                apiResult?.errorMessage,
-                apiResult
+            emit(
+                ResultWrapper.ApiError(
+                    apiResult?.error,
+                    apiResult?.errorMessage,
+                    apiResult
+                )
             )
         }
     }
