@@ -33,29 +33,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     @Inject
     lateinit var stockMarketApiService: StockMarketApiService
 
-    //Navigation
-    private val navigationManager: NavigationManager by lazy {
-        NavigationManager(
-            this@MainActivity,
-            R.id.container_fragment
-        )
-    }
-
-    //Buttons
-    private val dashboardButton: View by lazy { findViewById(R.id.button_dashboard) }
-    private val favouritesButton: View by lazy { findViewById(R.id.button_favourites) }
-    private val searchButton: FloatingActionButton by lazy { findViewById(R.id.button_search) }
-    private var selectedButton: View? = null
-        set(value) {
-            if (value == field) return
-
-            field = value
-
-            //Button selection
-            dashboardButton.isSelected = value == dashboardButton
-            favouritesButton.isSelected = value == favouritesButton
-        }
-
     override fun setup(): Unit = with(binding) {
 
         //Navigation drawer
@@ -80,20 +57,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         containerMain.bottomNavigationBar.bottomNavigationView.background = null
         containerMain.bottomNavigationBar.bottomNavigationView.menu.getItem(1).isEnabled = false
 
-        //Bottom navigation bar buttons
-        dashboardButton.setOnClickListener {
-            navigationManager.navigate(FragmentType.DASHBOARD)
-            selectedButton = it
-        }
+//        val navController = findNavController(R.id.container_fragment) //NullPointerException
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.container_fragment) as NavHostFragment
 
-        favouritesButton.setOnClickListener {
-            navigationManager.navigate(FragmentType.FAVOURITES)
-            selectedButton = it
-        }
-
-        //Load dashboard
-        navigationManager.showFragment(FragmentType.DASHBOARD)
-        selectedButton = dashboardButton
+        val navController = navHostFragment.navController
+        containerMain.bottomNavigationBar.bottomNavigationView.setupWithNavController(navController)
 
 //        callRequests()
     }
