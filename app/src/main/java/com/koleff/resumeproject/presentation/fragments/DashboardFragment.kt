@@ -11,6 +11,6 @@ class DashboardFragment: BaseFragment<FragmentDashboardBinding>() {
         FragmentDashboardBinding::inflate
 
     override fun setup() {
-        TODO("Not yet implemented")
+
     }
 }

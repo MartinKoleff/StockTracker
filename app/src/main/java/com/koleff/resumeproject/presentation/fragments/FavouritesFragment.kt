@@ -13,6 +13,6 @@ class FavouritesFragment: BaseFragment<FragmentFavouritesBinding>() {
         FragmentFavouritesBinding::inflate
 
     override fun setup() {
-        TODO("Not yet implemented")
+
     }
 }
