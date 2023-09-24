@@ -14,9 +14,9 @@
         android:id="@+id/bottom_navigation_bar"
         layout="@layout/bottom_navigation_bar" />
 
-    <FrameLayout
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/container_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
@@ -24,8 +24,8 @@
         app:defaultNavHost="true"
         app:navGraph="@navigation/main_activity_navigation">
 
-        <include
-            android:id="@+id/fragment_dashboard"
-            layout="@layout/fragment_dashboard" />
-    </FrameLayout>
+<!--        <include-->
+<!--            android:id="@+id/fragment_dashboard"-->
+<!--            layout="@layout/fragment_dashboard" />-->
+    </androidx.fragment.app.FragmentContainerView>
 </RelativeLayout>
