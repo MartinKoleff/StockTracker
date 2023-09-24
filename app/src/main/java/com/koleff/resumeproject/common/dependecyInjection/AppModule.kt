@@ -1,4 +1,4 @@
-package com.koleff.resumeproject.dependecyInjection
+package com.koleff.resumeproject.common.dependecyInjection
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.koleff.resumeproject.BuildConfig
