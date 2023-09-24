@@ -3,15 +3,15 @@
     android:layout_alignParentBottom="true">
 
     <item
-        android:id="@+id/button_dashboard"
+        android:id="@+id/dashboardFragment"
         android:title="@string/text_dashboard"
         android:icon="@drawable/ic_home"/>
 
-    <item android:id="@+id/button_placeholder"
+    <item android:id="@+id/placeholder"
         android:title="" />
 
     <item
-        android:id="@+id/button_favourites"
+        android:id="@+id/favouritesFragment"
         android:title="@string/text_favourites"
         android:icon="@drawable/ic_star"/>
 
