@@ -8,7 +8,8 @@
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.koleff.resumeproject.presentation.fragments.DashboardFragment"
-        android:label="DashboardFragment" >
+        android:label="DashboardFragment"
+        tools:layout="@layout/fragment_dashboard">
         <action
             android:id="@+id/action_dashboardFragment_to_favouritesFragment"
             app:destination="@id/favouritesFragment" />
@@ -16,7 +17,8 @@
     <fragment
         android:id="@+id/favouritesFragment"
         android:name="com.koleff.resumeproject.presentation.fragments.FavouritesFragment"
-        android:label="FavouritesFragment" >
+        android:label="FavouritesFragment"
+        tools:layout="@layout/fragment_favourites">
         <action
             android:id="@+id/action_favouritesFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
