@@ -9,11 +9,15 @@ import com.koleff.resumeproject.common.managers.DataManager
 import com.koleff.resumeproject.data.remote.StockMarketApi
 import com.koleff.resumeproject.data.repositories.StockMarketRepositoryImpl
 import com.koleff.resumeproject.domain.repositories.StockMarketRepository
+import com.koleff.resumeproject.presentation.viewModels.StockMarketViewModel
+import com.koleff.resumeproject.presentation.viewModels.TickerViewModel
+import com.koleff.resumeproject.presentation.viewModels.TickersViewModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -84,11 +88,27 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun providesActiveActivity(activeActivity: Activity): Activity{
+        return KoleffApp.getActiveActivity() //use weakReference in getActiveActivity()
+    }
+
+    //View Models
+
+    @Provides
+    @Singleton
+    fun providesStockMarketViewModel(stockMarketRepository: StockMarketRepository): StockMarketViewModel{
+        return StockMarketViewModel(stockMarketRepository) 
     }
 
     @Provides
     @Singleton
-    fun providesActiveActivity(activeActivity: Activity): Activity{
-        return KoleffApp.getActiveActivity() //use weakReference in getActiveActivity()
+    fun providesTickersViewModel(stockMarketRepository: StockMarketRepository): TickersViewModel{
+        return TickersViewModel(stockMarketRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun providesTickerViewModel(stockMarketRepository: StockMarketRepository): TickerViewModel{
+        return TickerViewModel(stockMarketRepository)
     }
 }
