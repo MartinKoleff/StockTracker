@@ -1,8 +1,10 @@
 package com.koleff.resumeproject.common.dependecyInjection
 
+import android.app.Activity
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.koleff.resumeproject.BuildConfig
-import com.koleff.resumeproject.common.types.Constants
+import com.koleff.resumeproject.KoleffApp
+import com.koleff.resumeproject.common.Constants
 import com.koleff.resumeproject.common.managers.DataManager
 import com.koleff.resumeproject.data.remote.StockMarketApi
 import com.koleff.resumeproject.data.repositories.StockMarketRepositoryImpl
@@ -25,8 +27,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
-    //Local dependencies
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
@@ -87,5 +87,11 @@ object AppModule {
     @Singleton
     fun providesStockMarketApiService(stockMarketRepository: StockMarketRepository): StockMarketApiService {
         return StockMarketApiService(stockMarketRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun providesActiveActivity(activeActivity: Activity): Activity{
+        return KoleffApp.getActiveActivity() //use weakReference in getActiveActivity()
     }
 }
