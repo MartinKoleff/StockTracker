@@ -19,6 +19,7 @@ import javax.inject.Inject
  * BaseActivity extends AppCompatActivity.
  */
 
+@Deprecated("Unused")
 class NavigationManager @Inject constructor(
     private val activity: AppCompatActivity,
     private val containerId: Int,

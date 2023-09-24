@@ -27,6 +27,7 @@
             android:src="@drawable/logo" />
 
         <RelativeLayout
+            android:id="@+id/rl_search_bar"
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:orientation="horizontal">
@@ -71,6 +72,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_list_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/header_navigation"

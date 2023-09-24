@@ -57,7 +57,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         containerMain.bottomNavigationBar.bottomNavigationView.background = null
         containerMain.bottomNavigationBar.bottomNavigationView.menu.getItem(1).isEnabled = false
 
-//        val navController = findNavController(R.id.container_fragment) //NullPointerException
+        //Navigation
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.container_fragment) as NavHostFragment
 
