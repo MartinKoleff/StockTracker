@@ -1,6 +1,6 @@
 package com.koleff.resumeproject.common.managers
 
-import com.koleff.resumeproject.common.types.Constants
+import com.koleff.resumeproject.common.Constants
 import com.koleff.resumeproject.domain.wrappers.StockData
 import com.koleff.resumeproject.domain.wrappers.TickerData
 

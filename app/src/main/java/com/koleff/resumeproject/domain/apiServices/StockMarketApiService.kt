@@ -3,7 +3,7 @@ package com.koleff.resumeproject.domain.apiServices
 import android.util.Log
 import com.koleff.resumeproject.KoleffApp
 import com.koleff.resumeproject.common.managers.DataManager
-import com.koleff.resumeproject.common.ErrorHandler
+import com.koleff.resumeproject.common.errorHandling.ErrorHandler
 import com.koleff.resumeproject.data.remote.dto.StockDataDto
 import com.koleff.resumeproject.data.remote.dto.TickerDto
 import com.koleff.resumeproject.domain.repositories.StockMarketRepository
