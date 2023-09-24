@@ -14,7 +14,6 @@ import com.koleff.resumeproject.R
 import com.koleff.resumeproject.common.navigation.FragmentType
 import com.koleff.resumeproject.common.navigation.NavigationManager
 import com.koleff.resumeproject.databinding.ActivityMainBinding
-import com.koleff.resumeproject.domain.apiServices.StockMarketApiService
 import com.koleff.resumeproject.presentation.activities.adapters.AdapterNavigationSettings
 import com.koleff.resumeproject.presentation.activities.adapters.SettingItem
 import com.koleff.resumeproject.presentation.activities.base.BaseActivity
@@ -30,8 +29,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override val bindingInflater: (LayoutInflater) -> ActivityMainBinding =
         ActivityMainBinding::inflate
 
-    @Inject
-    lateinit var stockMarketApiService: StockMarketApiService
 
     override fun setup(): Unit = with(binding) {
 

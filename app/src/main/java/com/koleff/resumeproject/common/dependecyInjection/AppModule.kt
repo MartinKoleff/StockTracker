@@ -8,7 +8,6 @@ import com.koleff.resumeproject.common.Constants
 import com.koleff.resumeproject.common.managers.DataManager
 import com.koleff.resumeproject.data.remote.StockMarketApi
 import com.koleff.resumeproject.data.repositories.StockMarketRepositoryImpl
-import com.koleff.resumeproject.domain.apiServices.StockMarketApiService
 import com.koleff.resumeproject.domain.repositories.StockMarketRepository
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -85,8 +84,6 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesStockMarketApiService(stockMarketRepository: StockMarketRepository): StockMarketApiService {
-        return StockMarketApiService(stockMarketRepository)
     }
 
     @Provides
