@@ -1,27 +1,28 @@
 package com.koleff.resumeproject.presentation.activities
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.ListView
 import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.koleff.resumeproject.KoleffApp
 import com.koleff.resumeproject.R
 import com.koleff.resumeproject.databinding.ActivityMainBinding
 import com.koleff.resumeproject.presentation.activities.adapters.AdapterNavigationSettings
 import com.koleff.resumeproject.presentation.activities.adapters.SettingItem
 import com.koleff.resumeproject.presentation.activities.base.BaseActivity
 import com.koleff.resumeproject.presentation.viewModels.StockMarketViewModel
-import com.koleff.resumeproject.presentation.viewModels.TickerViewModel
 import com.koleff.resumeproject.presentation.viewModels.TickersViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.rx3.asObservable
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override val bindingInflater: (LayoutInflater) -> ActivityMainBinding =
         ActivityMainBinding::inflate
-
 
     override fun setup(): Unit = with(binding) {
 
@@ -57,8 +58,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         //ViewModels
         val stockMarketViewModel: StockMarketViewModel by viewModels()
         val tickersViewModel: TickersViewModel by viewModels()
-        val tickerViewModel: TickerViewModel by viewModels()
+//        val tickerViewModel: TickerViewModel by viewModels()
 
+        stockMarketViewModel.state
+            .asObservable()
+            .subscribe { stocks ->
+                //Update UI
+                Log.d(KoleffApp.TAG_LOG, stocks.toString())
+        }
     }
 
 
