@@ -14,6 +14,8 @@ import com.koleff.resumeproject.domain.wrappers.networkWrappers.ResultWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectIndexed
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -22,7 +24,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TickersViewModel @Inject constructor(
     private val stockMarketRepository: StockMarketRepository,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val dispatcher: CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel() {
 
     private var _state = listOf<TickerData>()
@@ -56,7 +58,7 @@ class TickersViewModel @Inject constructor(
                             }
                     }
                 }
-            }
+            }.collect()
         }
     }
 }

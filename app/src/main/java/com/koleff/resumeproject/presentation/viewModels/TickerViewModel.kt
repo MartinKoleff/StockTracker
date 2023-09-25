@@ -21,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TickerViewModel @Inject constructor(
     private val stockMarketRepository: StockMarketRepository,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val dispatcher: CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel() {
 
     private lateinit var _state: TickerData
@@ -33,7 +33,7 @@ class TickerViewModel @Inject constructor(
 
     private fun getTicker(stockTag: String) {
         viewModelScope.launch(dispatcher) {
-            stockMarketRepository.getTicker(stockTag).onEach { apiResult ->
+            stockMarketRepository.getTicker(stockTag).collect { apiResult ->
                 when (apiResult) {
                     is ResultWrapper.ApiError -> {
                         ErrorHandler.showError(
