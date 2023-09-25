@@ -3,8 +3,11 @@ package com.koleff.resumeproject.common
 import com.koleff.resumeproject.domain.wrappers.networkWrappers.ResultWrapper
 import com.koleff.resumeproject.domain.wrappers.networkWrappers.ServerResponseData
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.withContext
 
 object Network {
@@ -14,37 +17,35 @@ object Network {
         dispatcher: CoroutineDispatcher,
         apiCall: suspend () -> T,
         unsuccessfulRetriesCount: Int = 0
-    ): Flow<ResultWrapper<T>> where T : ServerResponseData {
-        return withContext(dispatcher) {
-            flow {
-                try {
-                    emit(ResultWrapper.Loading())
+    ): Flow<ResultWrapper<T>> where T : ServerResponseData = flow {
+//        withContext(dispatcher) {
+        try {
+            emit(ResultWrapper.Loading())
 
-                    val apiResult = apiCall.invoke()
+            val apiResult = apiCall.invoke()
 
-                    if (apiResult.isSuccessful) {
-                        emit(ResultWrapper.Success(apiResult))
-                    } else {
-                        emit(
-                            ResultWrapper.ApiError(
-                                apiResult.error,
-                                apiResult.errorMessage,
-                                apiResult
-                            )
-                        )
-                    }
-                } catch (throwable: Throwable) {
-                    throwable.printStackTrace()
-                    doRetryCall(
-                        dispatcher,
-                        apiCall,
-                        null,
-                        unsuccessfulRetriesCount
+            if (apiResult.isSuccessful) {
+                emit(ResultWrapper.Success(apiResult))
+            } else {
+                emit(
+                    ResultWrapper.ApiError(
+                        apiResult.error,
+                        apiResult.errorMessage,
+                        apiResult
                     )
-                }
+                )
             }
+        } catch (throwable: Throwable) {
+            throwable.printStackTrace()
+            doRetryCall(
+                dispatcher,
+                apiCall,
+                null,
+                unsuccessfulRetriesCount
+            )
         }
-    }
+    }.flowOn(dispatcher)
+//    }
 
     private suspend fun <T> doRetryCall(
         dispatcher: CoroutineDispatcher,
