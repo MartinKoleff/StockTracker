@@ -14,9 +14,9 @@ import com.koleff.resumeproject.domain.wrappers.networkWrappers.ResultWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectIndexed
-import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,8 +27,11 @@ class TickersViewModel @Inject constructor(
     private val dispatcher: CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel() {
 
-    private var _state = listOf<TickerData>()
-    val state: List<TickerData> = _state
+    private val _state: MutableStateFlow<List<TickerData>> =
+        MutableStateFlow(emptyList())
+    val state: StateFlow<List<TickerData>>
+        get() = _state
+
 
     init {
         getTickers()
@@ -52,9 +55,9 @@ class TickersViewModel @Inject constructor(
                     is ResultWrapper.Success -> {
                         DataManager.tickers =
                             apiResult.data.tickers.map(TickerDto::toTickerData).also {
-                                Log.d(KoleffApp.TAG_LOG, it.toString())
+                                Log.d(KoleffApp.TAG_LOG, "Flow received in TickersViewModel.")
 
-                                _state = it
+                                _state.value = it
                             }
                     }
                 }

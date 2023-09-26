@@ -1,10 +1,6 @@
 package com.koleff.resumeproject.presentation.viewModels
 
 import android.util.Log
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.koleff.resumeproject.KoleffApp
@@ -17,15 +13,10 @@ import com.koleff.resumeproject.domain.wrappers.networkWrappers.ResultWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,11 +26,8 @@ class StockMarketViewModel @Inject constructor(
     private val dispatcher: CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel() {
 
-//    private var _state: MutableState<List<StockData>> = mutableStateOf(emptyList())
-//    val state: MutableState<List<StockData>>
-
     private val _state: MutableStateFlow<List<StockData>> =
-        MutableStateFlow(emptyList())//flowOf(emptyList())
+ MutableStateFlow(emptyList())
     val state: StateFlow<List<StockData>>
         get() = _state
 
@@ -69,16 +57,7 @@ class StockMarketViewModel @Inject constructor(
                     is ResultWrapper.Success -> {
                         DataManager.stocks =
                             apiResult.data.stockData.map(StockDataDto::toStockData).also {
-//                                Log.d(KoleffApp.TAG_LOG, it.toString())
-
-//                                _state = mutableStateOf(it)
-
-//                                _state = flowOf(it).stateIn(
-//                                    initialValue = it,
-//                                    scope = viewModelScope,
-//                                    started = SharingStarted.WhileSubscribed(5000)
-//                                )
-
+                                Log.d(KoleffApp.TAG_LOG, "Flow received in StockMarketViewModel.")
                                 _state.value = it
                             }
                     }

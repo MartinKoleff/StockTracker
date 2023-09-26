@@ -13,6 +13,8 @@ import com.koleff.resumeproject.domain.wrappers.networkWrappers.ResultWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -24,8 +26,10 @@ class TickerViewModel @Inject constructor(
     private val dispatcher: CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel() {
 
-    private lateinit var _state: TickerData
-    val state: TickerData = _state
+    private val _state: MutableStateFlow<TickerData>? = null
+    val state: StateFlow<TickerData>?
+        get() = _state
+
 
     init {
         getTicker("AAPL")
@@ -47,9 +51,9 @@ class TickerViewModel @Inject constructor(
                     }
                     is ResultWrapper.Success -> {
                         DataManager.selectedTicker = apiResult.data.ticker.also {
-                            Log.d(KoleffApp.TAG_LOG, it.toString())
+                            Log.d(KoleffApp.TAG_LOG, "Flow received in TickerViewModel.")
 
-                            _state = it
+                            _state?.value = it
                         }
                     }
                 }
