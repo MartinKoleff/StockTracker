@@ -3,12 +3,9 @@ package com.koleff.resumeproject.common
 import com.koleff.resumeproject.domain.wrappers.networkWrappers.ResultWrapper
 import com.koleff.resumeproject.domain.wrappers.networkWrappers.ServerResponseData
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.withContext
 
 object Network {
     private const val MAX_RETRY_COUNT = 1
@@ -18,7 +15,6 @@ object Network {
         apiCall: suspend () -> T,
         unsuccessfulRetriesCount: Int = 0
     ): Flow<ResultWrapper<T>> where T : ServerResponseData = flow {
-//        withContext(dispatcher) {
         try {
             emit(ResultWrapper.Loading())
 
@@ -45,7 +41,6 @@ object Network {
             )
         }
     }.flowOn(dispatcher)
-//    }
 
     private suspend fun <T> doRetryCall(
         dispatcher: CoroutineDispatcher,

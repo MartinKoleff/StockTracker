@@ -10,7 +10,10 @@ import com.koleff.resumeproject.domain.wrappers.networkWrappers.ResultWrapper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 class StockMarketRepositoryImpl
@@ -23,8 +26,8 @@ class StockMarketRepositoryImpl
         stockTag: String,
         dateFrom: String,
         dateTo: String
-    ): Flow<ResultWrapper<GetStockDataWrapper>> = flow {
-        Network.executeApiCall(dispatcher,
+    ): Flow<ResultWrapper<GetStockDataWrapper>>{
+        return Network.executeApiCall(dispatcher,
             {
                 GetStockDataWrapper(
                     stockMarketApi.getStockData(
