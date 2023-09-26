@@ -5,6 +5,10 @@ import android.view.LayoutInflater
 import android.widget.ListView
 import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.koleff.resumeproject.KoleffApp
@@ -16,6 +20,10 @@ import com.koleff.resumeproject.presentation.activities.base.BaseActivity
 import com.koleff.resumeproject.presentation.viewModels.StockMarketViewModel
 import com.koleff.resumeproject.presentation.viewModels.TickersViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.rx3.asObservable
 
 @AndroidEntryPoint
@@ -60,11 +68,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         val tickersViewModel: TickersViewModel by viewModels()
 //        val tickerViewModel: TickerViewModel by viewModels()
 
-        stockMarketViewModel.state
-            .asObservable()
-            .subscribe { stocks ->
-                //Update UI
-                Log.d(KoleffApp.TAG_LOG, stocks.toString())
+//        stockMarketViewModel.state
+//            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)//check if needed?
+//            .asObservable()
+//            .subscribe { stocks ->
+//                //Update UI
+//                Log.d(KoleffApp.TAG_LOG, stocks.toString())
+//        }.dispose()
+
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {//RESUMED
+                stockMarketViewModel.state.collect {
+                    Log.d(KoleffApp.TAG_LOG, it.toString())
+                }
+            }
+        }
+
         }
     }
 
