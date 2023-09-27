@@ -8,6 +8,8 @@ The app consists of:
    - Bottom navigation bar menu
    - Top navigation tool bar
    - Custom graph configurable with data
+   - ViewModels
+   - RecyclerView
 3. REST specifics
    - Public API
    - Fake API with mock-up data
@@ -15,15 +17,15 @@ The app consists of:
    - Custom API response handling
 4. Error Handling
    - Custom configurable error dialog 
- 
+
 
 Coming soon:
+- Backend server
 - Push notifications
 - Day/Night themes
-- Login/Register verification using Firebase
+- Login/Register verification using Firebase / Backend OAuth2 verification
 - Multiple languages support
 - SearchView with options auto recommenditon
-- ViewModels
 - Data caching via Room DB
 - Google Play configuration and upload to Play Console
 
