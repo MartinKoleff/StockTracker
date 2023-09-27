@@ -66,7 +66,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {//RESUMED
                 stockMarketViewModel.state.collect {
-                    Log.d(KoleffApp.TAG_LOG, it.toString())
+                    Log.d(KoleffApp.TAG_LOG, "Flow received in MainActivity from StockMarketViewModel -> $it")
                 }
             }
         }
