@@ -14,9 +14,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,7 +29,7 @@ class StockMarketViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _state: MutableStateFlow<List<StockData>> =
- MutableStateFlow(emptyList())
+        MutableStateFlow(emptyList())
     val state: StateFlow<List<StockData>>
         get() = _state
 
@@ -36,6 +38,11 @@ class StockMarketViewModel @Inject constructor(
     }
 
     init {
+//        _state.stateIn(
+//            initialValue = emptyList(),
+//            scope = viewModelScope,
+//            started = SharingStarted.WhileSubscribed(5000)
+//        )
         getStockData("AAPL", "2023-09-10", "2023-09-18")
     }
 
