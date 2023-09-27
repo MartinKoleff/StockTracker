@@ -9,6 +9,11 @@ import com.koleff.resumeproject.domain.wrappers.GetTickersWrapper
 import com.koleff.resumeproject.domain.wrappers.networkWrappers.ResultWrapper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 class StockMarketRepositoryImpl
@@ -21,7 +26,7 @@ class StockMarketRepositoryImpl
         stockTag: String,
         dateFrom: String,
         dateTo: String
-    ): ResultWrapper<GetStockDataWrapper> {
+    ): Flow<ResultWrapper<GetStockDataWrapper>>{
         return Network.executeApiCall(dispatcher,
             {
                 GetStockDataWrapper(
@@ -34,7 +39,7 @@ class StockMarketRepositoryImpl
             })
     }
 
-    override suspend fun getTickers(): ResultWrapper<GetTickersWrapper> {
+    override suspend fun getTickers(): Flow<ResultWrapper<GetTickersWrapper>> {
         return Network.executeApiCall(dispatcher,
             {
                 GetTickersWrapper(
@@ -43,7 +48,7 @@ class StockMarketRepositoryImpl
             })
     }
 
-    override suspend fun getTicker(stockTag: String): ResultWrapper<GetTickerWrapper> {
+    override suspend fun getTicker(stockTag: String): Flow<ResultWrapper<GetTickerWrapper>> {
         return Network.executeApiCall(dispatcher,
             {
                 GetTickerWrapper(

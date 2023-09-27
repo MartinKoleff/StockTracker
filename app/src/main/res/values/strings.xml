@@ -25,4 +25,5 @@
     <string name="text_cancel">Cancel</string>
     <string name="text_try_again">Try again</string>
     <string name="text_cannot_establish_connection_with_servers">The application cannot establish a connection with our servers. Please check if you are connected to the internet and try again later.</string>
+    <string name="text_no_filters">No filters</string>
 </resources>

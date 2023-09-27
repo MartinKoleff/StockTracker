@@ -1,4 +1,4 @@
-package com.koleff.resumeproject.common
+package com.koleff.resumeproject.common.errorHandling
 
 import android.app.Activity
 import com.koleff.resumeproject.KoleffApp

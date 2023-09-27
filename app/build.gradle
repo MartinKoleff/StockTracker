@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+    id "androidx.navigation.safeargs"
 }
 
 android {
@@ -72,28 +73,37 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.lifecycle:lifecycle-process:2.6.2'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-process:$lifecycle_version"
 
     //KotlinX
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutineVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutineVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-rx3:$kotlinCoroutineVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-rx3:$coroutine_version"
+
+    //Rx Java
+    implementation "io.reactivex.rxjava2:rxjava:$rx_java_version"
+    implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
 
     //Google
-    implementation 'com.google.android.material:material:1.5.0'
-
-    //Compose
-    implementation("androidx.compose.runtime:runtime:$compose_version")
+    implementation "com.google.android.material:material:$android_material_version"
 
     //Gson (Json converter)
     implementation 'com.google.code.gson:gson:2.8.6'
+
+    //Compose
+    implementation "androidx.compose.runtime:runtime:$compose_version"
 
     //Dagger Hilt
     implementation "com.google.dagger:hilt-android:$dagger_hilt_version"
     kapt "com.google.dagger:hilt-compiler:$dagger_hilt_version"
 
     //JSON
-    implementation("com.squareup.moshi:moshi:$moshi_version")
+    implementation "com.squareup.moshi:moshi:$moshi_version"
     implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
 
     //OkHttp 3
@@ -105,11 +115,11 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit2_version"
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
 
-    //JSoup
-    implementation 'org.jsoup:jsoup:1.14.3'
+    //JSoup (Web scraping)
+//    implementation 'org.jsoup:jsoup:1.14.3'
 
-    // Picasso
-    implementation 'com.squareup.picasso:picasso:2.71828'
+    //Picasso (ImageView configuration)
+//    implementation 'com.squareup.picasso:picasso:2.71828'
 
     //JUnit
     testImplementation 'junit:junit:4.13.2'

@@ -1,18 +1,23 @@
-package com.koleff.resumeproject.dependecyInjection
+package com.koleff.resumeproject.common.dependecyInjection
 
+import android.app.Activity
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.koleff.resumeproject.BuildConfig
-import com.koleff.resumeproject.common.types.Constants
+import com.koleff.resumeproject.KoleffApp
+import com.koleff.resumeproject.common.Constants
 import com.koleff.resumeproject.common.managers.DataManager
 import com.koleff.resumeproject.data.remote.StockMarketApi
 import com.koleff.resumeproject.data.repositories.StockMarketRepositoryImpl
-import com.koleff.resumeproject.domain.apiServices.StockMarketApiService
 import com.koleff.resumeproject.domain.repositories.StockMarketRepository
+import com.koleff.resumeproject.presentation.viewModels.StockMarketViewModel
+import com.koleff.resumeproject.presentation.viewModels.TickerViewModel
+import com.koleff.resumeproject.presentation.viewModels.TickersViewModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -25,8 +30,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
-    //Local dependencies
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
@@ -85,7 +88,27 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesStockMarketApiService(stockMarketRepository: StockMarketRepository): StockMarketApiService {
-        return StockMarketApiService(stockMarketRepository)
+    fun providesActiveActivity(activeActivity: Activity): Activity{
+        return KoleffApp.getActiveActivity() //use weakReference in getActiveActivity()
+    }
+
+    //View Models
+
+    @Provides
+    @Singleton
+    fun providesStockMarketViewModel(stockMarketRepository: StockMarketRepository): StockMarketViewModel{
+        return StockMarketViewModel(stockMarketRepository) 
+    }
+
+    @Provides
+    @Singleton
+    fun providesTickersViewModel(stockMarketRepository: StockMarketRepository): TickersViewModel{
+        return TickersViewModel(stockMarketRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun providesTickerViewModel(stockMarketRepository: StockMarketRepository): TickerViewModel{
+        return TickerViewModel(stockMarketRepository)
     }
 }

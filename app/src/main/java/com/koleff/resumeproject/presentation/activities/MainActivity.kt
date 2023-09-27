@@ -1,18 +1,25 @@
 package com.koleff.resumeproject.presentation.activities
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.ListView
+import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import com.koleff.resumeproject.KoleffApp
 import com.koleff.resumeproject.R
 import com.koleff.resumeproject.databinding.ActivityMainBinding
-import com.koleff.resumeproject.domain.apiServices.StockMarketApiService
 import com.koleff.resumeproject.presentation.activities.adapters.AdapterNavigationSettings
 import com.koleff.resumeproject.presentation.activities.adapters.SettingItem
 import com.koleff.resumeproject.presentation.activities.base.BaseActivity
+import com.koleff.resumeproject.presentation.viewModels.StockMarketViewModel
+import com.koleff.resumeproject.presentation.viewModels.TickersViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -20,8 +27,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override val bindingInflater: (LayoutInflater) -> ActivityMainBinding =
         ActivityMainBinding::inflate
 
-    @Inject
-    lateinit var stockMarketApiService: StockMarketApiService
     override fun setup(): Unit = with(binding) {
 
         //Navigation drawer
@@ -46,17 +51,27 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         containerMain.bottomNavigationBar.bottomNavigationView.background = null
         containerMain.bottomNavigationBar.bottomNavigationView.menu.getItem(1).isEnabled = false
 
-        callRequests()
-    }
+        //Navigation
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.container_fragment) as NavHostFragment
 
+        val navController = navHostFragment.navController
+        containerMain.bottomNavigationBar.bottomNavigationView.setupWithNavController(navController)
 
-    private fun callRequests() {
+        //ViewModels
+        val stockMarketViewModel: StockMarketViewModel by viewModels()
+        val tickersViewModel: TickersViewModel by viewModels()
+//        val tickerViewModel: TickerViewModel by viewModels()
+
         lifecycleScope.launch {
-//            stockMarketApiService.getStockData("AAPL", "2023-09-10", "2023-09-18")
-//            stockMarketApiService.getTickers()
-//            stockMarketApiService.getTicker("AAPL")
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {//RESUMED
+                stockMarketViewModel.state.collect {
+                    Log.d(KoleffApp.TAG_LOG, "Flow received in MainActivity from StockMarketViewModel -> $it")
+                }
+            }
         }
     }
+
 
     private fun fillNavigationSettings(list: MutableList<SettingItem>) {
         list.add(SettingItem(SettingItem.id_language, resources.getString(R.string.text_language), R.drawable.ic_language))

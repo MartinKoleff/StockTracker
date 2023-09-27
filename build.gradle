@@ -1,10 +1,19 @@
 buildscript {
-    ext.kotlinCoroutineVersion = '1.5.0'
+    ext.coroutine_version = '1.5.0'
     ext.retrofit2_version = '2.9.0'
     ext.okhttp3_version = '4.9.1'
     ext.compose_version = '1.5.1'
     ext.dagger_hilt_version = '2.48'
     ext.moshi_version = '1.15.0'
+    ext.nav_version = '2.7.3'
+    ext.android_material_version = '1.5.0' //latest version breaks the bottom bar.
+    ext.rx_java_version = '2.2.19'
+    ext.lifecycle_version = '2.6.2'
+
+    dependencies {
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
+        //move gradle dependency classpath here?
+    }
 }
 
 plugins {
