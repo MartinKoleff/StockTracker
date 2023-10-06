@@ -17,10 +17,11 @@ The app consists of:
    - Custom API response handling
 4. Error Handling
    - Custom configurable error dialog 
+5. Custom Back-end
+    - Back-end repository: https://github.com/MartinKoleff/StockTrackerServer/tree/master
 
 
 Coming soon:
-- Backend server
 - Push notifications
 - Day/Night themes
 - Login/Register verification using Firebase / Backend OAuth2 verification
