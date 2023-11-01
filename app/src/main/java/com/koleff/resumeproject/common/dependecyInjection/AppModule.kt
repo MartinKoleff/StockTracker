@@ -9,7 +9,7 @@ import com.koleff.resumeproject.common.managers.DataManager
 import com.koleff.resumeproject.data.remote.StockApi
 import com.koleff.resumeproject.data.repositories.StockRepositoryImpl
 import com.koleff.resumeproject.domain.repositories.StockRepository
-import com.koleff.resumeproject.presentation.viewModels.StockMarketViewModel
+import com.koleff.resumeproject.presentation.viewModels.StockViewModel
 import com.koleff.resumeproject.presentation.viewModels.TickerViewModel
 import com.koleff.resumeproject.presentation.viewModels.TickersViewModel
 import com.squareup.moshi.Moshi
@@ -95,8 +95,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesStockViewModel(stockRepository: StockRepository): StockMarketViewModel{
-        return StockMarketViewModel(stockRepository)
+    fun providesStockViewModel(stockRepository: StockRepository): StockViewModel{
+        return StockViewModel(stockRepository)
     }
 
     @Provides

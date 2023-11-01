@@ -6,7 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.koleff.resumeproject.KoleffApp
 import com.koleff.resumeproject.common.errorHandling.ErrorHandler
 import com.koleff.resumeproject.common.managers.DataManager
-import com.koleff.resumeproject.domain.repositories.StockMarketRepository
+import com.koleff.resumeproject.data.dto.StockDto
+import com.koleff.resumeproject.domain.repositories.StockRepository
 import com.koleff.resumeproject.domain.wrappers.StockData
 import com.koleff.resumeproject.domain.wrappers.networkWrappers.ResultWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,8 +21,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class StockMarketViewModel @Inject constructor(
-    private val stockMarketRepository: StockMarketRepository,
+class StockViewModel @Inject constructor(
+    private val stockRepository: StockRepository,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel() {
 
@@ -40,12 +41,13 @@ class StockMarketViewModel @Inject constructor(
 //            scope = viewModelScope,
 //            started = SharingStarted.WhileSubscribed(5000)
 //        )
-        getStockData("AAPL", "2023-09-10", "2023-09-18")
+
+//        getStockData("AAPL", "2023-09-10", "2023-09-18")
     }
 
-    fun getStockData(stockTag: String, dateFrom: String, dateTo: String) {
+    fun getStocksData() {
         viewModelScope.launch(dispatcher) {
-            stockMarketRepository.getStockData(stockTag, dateFrom, dateTo).onEach { apiResult ->
+            stockRepository.getStocks().onEach { apiResult ->
                 when (apiResult) {
                     is ResultWrapper.ApiError -> {
                         ErrorHandler.showError(
@@ -60,8 +62,10 @@ class StockMarketViewModel @Inject constructor(
 
                     is ResultWrapper.Success -> {
                         DataManager.stocks =
-                            apiResult.data.stockData.map(StockDataDto::toStockData).also {
-                                Log.d(KoleffApp.TAG_LOG, "Flow received in StockMarketViewModel.")
+                            apiResult.data.stockData
+                                .map(StockDto::toStockData)
+                                .also {
+                                Log.d(KoleffApp.TAG_LOG, "Flow received in StockViewModel.")
                                 _state.value = it
                             }
                     }
