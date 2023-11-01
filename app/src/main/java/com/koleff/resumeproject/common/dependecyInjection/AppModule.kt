@@ -69,7 +69,7 @@ object AppModule {
     //Global dependencies
     @Provides
     @Singleton
-    fun provideStockMarketApi(okHttpClient: OkHttpClient, moshi: Moshi): StockApi {
+    fun provideStockApi(okHttpClient: OkHttpClient, moshi: Moshi): StockApi {
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_LOCAL_URL)
             .client(okHttpClient)
@@ -81,7 +81,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideStockMarketRepository(api: StockApi): StockRepository {
+    fun provideStockRepository(api: StockApi): StockRepository {
         return StockRepositoryImpl(api)
     }
 
@@ -95,19 +95,19 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesStockMarketViewModel(stockMarketRepository: StockRepository): StockMarketViewModel{
-        return StockMarketViewModel(stockMarketRepository) 
+    fun providesStockViewModel(stockRepository: StockRepository): StockMarketViewModel{
+        return StockMarketViewModel(stockRepository)
     }
 
     @Provides
     @Singleton
-    fun providesTickersViewModel(stockMarketRepository: StockRepository): TickersViewModel{
-        return TickersViewModel(stockMarketRepository)
+    fun providesTickersViewModel(stockRepository: StockRepository): TickersViewModel{
+        return TickersViewModel(stockRepository)
     }
 
     @Provides
     @Singleton
-    fun providesTickerViewModel(stockMarketRepository: StockRepository): TickerViewModel{
-        return TickerViewModel(stockMarketRepository)
+    fun providesTickerViewModel(stockRepository: StockRepository): TickerViewModel{
+        return TickerViewModel(stockRepository)
     }
 }
