@@ -7,7 +7,7 @@ import com.koleff.resumeproject.KoleffApp
 import com.koleff.resumeproject.common.Constants
 import com.koleff.resumeproject.common.managers.DataManager
 import com.koleff.resumeproject.data.remote.StockMarketApi
-import com.koleff.resumeproject.data.repositories.StockMarketRepositoryImpl
+import com.koleff.resumeproject.data.repositories.StockRepositoryImpl
 import com.koleff.resumeproject.domain.repositories.StockRepository
 import com.koleff.resumeproject.presentation.viewModels.StockMarketViewModel
 import com.koleff.resumeproject.presentation.viewModels.TickerViewModel
@@ -82,7 +82,7 @@ object AppModule {
     @Provides
     @Singleton
     fun provideStockMarketRepository(api: StockMarketApi): StockRepository {
-        return StockMarketRepositoryImpl(api)
+        return StockRepositoryImpl(api)
     }
 
     @Provides
