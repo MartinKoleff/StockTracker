@@ -6,7 +6,6 @@ import com.google.gson.reflect.TypeToken
 import com.koleff.resumeproject.KoleffApp
 import com.koleff.resumeproject.common.Constants
 import com.koleff.resumeproject.domain.wrappers.StockData
-import com.koleff.resumeproject.domain.wrappers.TickerData
 
 object DataManager {
     //Constants
@@ -25,8 +24,8 @@ object DataManager {
             sharedPreferences.edit().putString(STOCKS_CACHE, gson.toJson(value)).apply()
             //Send broadcast to notify UI...
         }
-    lateinit var tickers: List<TickerData>
-    lateinit var selectedTicker: TickerData
+
+    var selectedStock: StockData? = null
 
     val apiUrl = if(!Constants.useFakeApi) Constants.BASE_URL else Constants.FAKE_BASE_URL
 }
