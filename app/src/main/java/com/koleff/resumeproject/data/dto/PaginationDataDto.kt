@@ -1,4 +1,4 @@
-package com.koleff.resumeproject.data.remote.dto
+package com.koleff.resumeproject.data.dto
 
 import android.os.Parcelable
 import com.squareup.moshi.Json
