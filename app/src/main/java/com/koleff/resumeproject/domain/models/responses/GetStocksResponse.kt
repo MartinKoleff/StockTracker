@@ -1,12 +1,13 @@
 package com.koleff.resumeproject.domain.models.responses
 
 import com.koleff.resumeproject.data.dto.PaginationDataDto
+import com.koleff.resumeproject.data.dto.StockDto
 import com.koleff.resumeproject.domain.models.responses.baseResponse.BaseResponse
 import com.squareup.moshi.Json
 
-data class GetTickersResponse(
-    @Json(name = "data")
-    val tickers: List<TickerDto>,
+data class GetStocksResponse (
     @Json(name = "pagination")
-    val paginationData: PaginationDataDto
+    val paginationData: PaginationDataDto,
+    @Json(name = "data")
+    val stockData: List<StockDto>,
 ): BaseResponse()
