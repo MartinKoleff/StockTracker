@@ -2,7 +2,7 @@ package com.koleff.resumeproject.data.repositories
 
 import com.koleff.resumeproject.common.Network
 import com.koleff.resumeproject.data.dto.StockDto
-import com.koleff.resumeproject.data.remote.StockMarketApi
+import com.koleff.resumeproject.data.remote.StockApi
 import com.koleff.resumeproject.domain.models.requests.GetStocksRequest
 import com.koleff.resumeproject.domain.models.requests.SaveStockRequest
 import com.koleff.resumeproject.domain.models.requests.SaveStocksRequest
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 class StockRepositoryImpl
 @Inject constructor(
-    private val stockMarketApi: StockMarketApi,
+    private val stockMarketApi: StockApi,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : StockRepository {
     override suspend fun getStocks(): Flow<ResultWrapper<GetStocksWrapper>> {

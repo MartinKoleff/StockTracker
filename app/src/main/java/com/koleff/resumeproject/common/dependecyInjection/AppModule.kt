@@ -6,7 +6,7 @@ import com.koleff.resumeproject.BuildConfig
 import com.koleff.resumeproject.KoleffApp
 import com.koleff.resumeproject.common.Constants
 import com.koleff.resumeproject.common.managers.DataManager
-import com.koleff.resumeproject.data.remote.StockMarketApi
+import com.koleff.resumeproject.data.remote.StockApi
 import com.koleff.resumeproject.data.repositories.StockRepositoryImpl
 import com.koleff.resumeproject.domain.repositories.StockRepository
 import com.koleff.resumeproject.presentation.viewModels.StockMarketViewModel
@@ -69,19 +69,19 @@ object AppModule {
     //Global dependencies
     @Provides
     @Singleton
-    fun provideStockMarketApi(okHttpClient: OkHttpClient, moshi: Moshi): StockMarketApi {
+    fun provideStockMarketApi(okHttpClient: OkHttpClient, moshi: Moshi): StockApi {
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_LOCAL_URL)
             .client(okHttpClient)
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
-            .create(StockMarketApi::class.java)
+            .create(StockApi::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideStockMarketRepository(api: StockMarketApi): StockRepository {
+    fun provideStockMarketRepository(api: StockApi): StockRepository {
         return StockRepositoryImpl(api)
     }
 
