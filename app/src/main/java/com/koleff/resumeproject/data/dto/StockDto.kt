@@ -1,5 +1,6 @@
 package com.koleff.resumeproject.data.dto
 
+import com.koleff.resumeproject.domain.wrappers.StockData
 import com.squareup.moshi.Json
 
 data class StockDto(
@@ -17,4 +18,8 @@ data class StockDto(
     val intraDayList: List<EndOfDayDto>,
     @field:Json(name = "stock_exchange")
     val stockExchange: StockExchangeDto
-)
+)  {
+    fun toStockData(): StockData {
+        return StockData(this)
+    }
+}
