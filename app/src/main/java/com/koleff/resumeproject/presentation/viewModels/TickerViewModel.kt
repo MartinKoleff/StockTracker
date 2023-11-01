@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.koleff.resumeproject.KoleffApp
 import com.koleff.resumeproject.common.errorHandling.ErrorHandler
 import com.koleff.resumeproject.common.managers.DataManager
-import com.koleff.resumeproject.data.remote.dto.TickerDto
 import com.koleff.resumeproject.domain.repositories.StockMarketRepository
 import com.koleff.resumeproject.domain.wrappers.TickerData
 import com.koleff.resumeproject.domain.wrappers.networkWrappers.ResultWrapper
@@ -15,8 +14,6 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

@@ -1,7 +1,5 @@
 package com.koleff.resumeproject.domain.wrappers
 
-import com.koleff.resumeproject.data.remote.dto.StockDataDto
-
 //Used for presentation layer creation.
 data class StockData (val stockDataDto: StockDataDto){
     val date = stockDataDto.date

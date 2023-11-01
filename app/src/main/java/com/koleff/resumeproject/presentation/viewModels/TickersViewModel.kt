@@ -6,9 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.koleff.resumeproject.KoleffApp
 import com.koleff.resumeproject.common.errorHandling.ErrorHandler
 import com.koleff.resumeproject.common.managers.DataManager
-import com.koleff.resumeproject.data.remote.dto.TickerDto
 import com.koleff.resumeproject.domain.repositories.StockMarketRepository
-import com.koleff.resumeproject.domain.wrappers.StockData
 import com.koleff.resumeproject.domain.wrappers.TickerData
 import com.koleff.resumeproject.domain.wrappers.networkWrappers.ResultWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
