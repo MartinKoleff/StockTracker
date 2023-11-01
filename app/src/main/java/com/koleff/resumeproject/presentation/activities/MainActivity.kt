@@ -16,7 +16,8 @@ import com.koleff.resumeproject.databinding.ActivityMainBinding
 import com.koleff.resumeproject.presentation.activities.adapters.AdapterNavigationSettings
 import com.koleff.resumeproject.presentation.activities.adapters.SettingItem
 import com.koleff.resumeproject.presentation.activities.base.BaseActivity
-import com.koleff.resumeproject.presentation.viewModels.StockMarketViewModel
+import com.koleff.resumeproject.presentation.viewModels.StockViewModel
+import com.koleff.resumeproject.presentation.viewModels.StocksViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -58,12 +59,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         containerMain.bottomNavigationBar.bottomNavigationView.setupWithNavController(navController)
 
         //ViewModels
-        val stockMarketViewModel: StockMarketViewModel by viewModels()
+        val stocksViewModel: StocksViewModel by viewModels()
+        val stockViewModel: StockViewModel by viewModels()
 
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {//RESUMED
-                stockMarketViewModel.state.collect {
-                    Log.d(KoleffApp.TAG_LOG, "Flow received in MainActivity from StockMarketViewModel -> $it")
+                stocksViewModel.state.collect {
+                    Log.d(KoleffApp.TAG_LOG, "Flow received in MainActivity from StocksViewModel -> $it")
                 }
             }
         }

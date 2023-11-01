@@ -94,9 +94,13 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun providesStocksViewModel(stockRepository: StockRepository): StocksViewModel{
+        return StocksViewModel(stockRepository)
     }
 
     @Provides
     @Singleton
+    fun providesStockViewModel(stockRepository: StockRepository): StockViewModel{
+        return StockViewModel(stockRepository)
     }
 }
