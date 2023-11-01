@@ -8,7 +8,7 @@ import com.koleff.resumeproject.common.Constants
 import com.koleff.resumeproject.common.managers.DataManager
 import com.koleff.resumeproject.data.remote.StockMarketApi
 import com.koleff.resumeproject.data.repositories.StockMarketRepositoryImpl
-import com.koleff.resumeproject.domain.repositories.StockMarketRepository
+import com.koleff.resumeproject.domain.repositories.StockRepository
 import com.koleff.resumeproject.presentation.viewModels.StockMarketViewModel
 import com.koleff.resumeproject.presentation.viewModels.TickerViewModel
 import com.koleff.resumeproject.presentation.viewModels.TickersViewModel
@@ -17,7 +17,6 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -82,7 +81,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideStockMarketRepository(api: StockMarketApi): StockMarketRepository {
+    fun provideStockMarketRepository(api: StockMarketApi): StockRepository {
         return StockMarketRepositoryImpl(api)
     }
 
@@ -96,19 +95,19 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesStockMarketViewModel(stockMarketRepository: StockMarketRepository): StockMarketViewModel{
+    fun providesStockMarketViewModel(stockMarketRepository: StockRepository): StockMarketViewModel{
         return StockMarketViewModel(stockMarketRepository) 
     }
 
     @Provides
     @Singleton
-    fun providesTickersViewModel(stockMarketRepository: StockMarketRepository): TickersViewModel{
+    fun providesTickersViewModel(stockMarketRepository: StockRepository): TickersViewModel{
         return TickersViewModel(stockMarketRepository)
     }
 
     @Provides
     @Singleton
-    fun providesTickerViewModel(stockMarketRepository: StockMarketRepository): TickerViewModel{
+    fun providesTickerViewModel(stockMarketRepository: StockRepository): TickerViewModel{
         return TickerViewModel(stockMarketRepository)
     }
 }
