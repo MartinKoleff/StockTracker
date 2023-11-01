@@ -9,9 +9,8 @@ import com.koleff.resumeproject.common.managers.DataManager
 import com.koleff.resumeproject.data.remote.StockApi
 import com.koleff.resumeproject.data.repositories.StockRepositoryImpl
 import com.koleff.resumeproject.domain.repositories.StockRepository
+import com.koleff.resumeproject.presentation.viewModels.StocksViewModel
 import com.koleff.resumeproject.presentation.viewModels.StockViewModel
-import com.koleff.resumeproject.presentation.viewModels.TickerViewModel
-import com.koleff.resumeproject.presentation.viewModels.TickersViewModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -95,19 +94,9 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesStockViewModel(stockRepository: StockRepository): StockViewModel{
-        return StockViewModel(stockRepository)
     }
 
     @Provides
     @Singleton
-    fun providesTickersViewModel(stockRepository: StockRepository): TickersViewModel{
-        return TickersViewModel(stockRepository)
-    }
-
-    @Provides
-    @Singleton
-    fun providesTickerViewModel(stockRepository: StockRepository): TickerViewModel{
-        return TickerViewModel(stockRepository)
     }
 }

@@ -17,7 +17,6 @@ import com.koleff.resumeproject.presentation.activities.adapters.AdapterNavigati
 import com.koleff.resumeproject.presentation.activities.adapters.SettingItem
 import com.koleff.resumeproject.presentation.activities.base.BaseActivity
 import com.koleff.resumeproject.presentation.viewModels.StockMarketViewModel
-import com.koleff.resumeproject.presentation.viewModels.TickersViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -60,8 +59,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         //ViewModels
         val stockMarketViewModel: StockMarketViewModel by viewModels()
-        val tickersViewModel: TickersViewModel by viewModels()
-//        val tickerViewModel: TickerViewModel by viewModels()
 
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {//RESUMED
