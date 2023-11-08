@@ -1,26 +1,19 @@
 package com.koleff.resumeproject.common.errorHandling
 
 import android.app.Activity
-import com.koleff.resumeproject.KoleffApp
 import com.koleff.resumeproject.R
 import com.koleff.resumeproject.domain.wrappers.networkWrappers.KoleffError
 import com.koleff.resumeproject.presentation.dialogs.ErrorDialog
-import java.lang.ref.WeakReference
 
 object ErrorHandler {
-
-    private val activeActivity: WeakReference<Activity> by lazy {WeakReference(KoleffApp.getActiveActivity())}
-
-    fun showError(error: KoleffError? = null, errorMessage: String? = null) {
-        activeActivity.get() != null || return
-
-        val neutralButtonText = activeActivity.get()!!.getString(R.string.text_ok)
-        val positiveButtonText = activeActivity.get()!!.getString(R.string.text_yes)
-        val negativeButtonText = activeActivity.get()!!.getString(R.string.text_cancel)
+    fun showError(activity: Activity, error: KoleffError? = null, errorMessage: String? = null) {
+        val neutralButtonText = activity.getString(R.string.text_ok)
+        val positiveButtonText = activity.getString(R.string.text_yes)
+        val negativeButtonText = activity.getString(R.string.text_cancel)
 
         val dialogError: KoleffError = error ?: KoleffError.GENERIC
         val dialogMessage: String =
-            errorMessage ?: activeActivity.get()!!.getString(dialogError.errorMessage)
+            errorMessage ?: activity.getString(dialogError.errorMessage)
 
         val errorDialog = ErrorDialog.Builder()
             .setMessage(dialogMessage)
@@ -32,7 +25,7 @@ object ErrorHandler {
                     .setPositiveButton(positiveButtonText)
                     .setNegativeButton(negativeButtonText)
             }
-
+            //TODO: add other errors...
             else -> {
                 errorDialog
                     .setPositiveButton(positiveButtonText)
@@ -40,6 +33,6 @@ object ErrorHandler {
             }
         }
 
-        errorDialog.show(activeActivity.get()!!)
+        errorDialog.show(activity)
     }
 }
