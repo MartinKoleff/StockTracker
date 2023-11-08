@@ -15,7 +15,7 @@ data class StockDto(
     @field:Json(name = "end_of_day")
     val endOfDayList: List<EndOfDayDto>,
     @field:Json(name = "intra_day")
-    val intraDayList: List<EndOfDayDto>,
+    val intraDayList: List<IntraDayDto>,
     @field:Json(name = "stock_exchange")
     val stockExchange: StockExchangeDto
 )  {
