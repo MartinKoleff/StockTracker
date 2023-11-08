@@ -1,6 +1,7 @@
 package com.koleff.resumeproject.data.dto
 
 import com.squareup.moshi.Json
+import java.util.Date
 
 data class IntraDayDto(
     @field:Json(name = "open")
@@ -16,5 +17,5 @@ data class IntraDayDto(
     @field:Json(name = "volume")
     val volume: Double?,
     @field:Json(name = "date")
-    val date: String //TODO: convert to Date
+    val date: Date
 )
