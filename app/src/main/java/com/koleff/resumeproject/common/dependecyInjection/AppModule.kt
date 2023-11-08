@@ -10,7 +10,6 @@ import com.koleff.resumeproject.data.remote.StockApi
 import com.koleff.resumeproject.data.repositories.StockRepositoryImpl
 import com.koleff.resumeproject.domain.repositories.StockRepository
 import com.koleff.resumeproject.presentation.viewModels.StocksViewModel
-import com.koleff.resumeproject.presentation.viewModels.StockViewModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -84,23 +83,11 @@ object AppModule {
         return StockRepositoryImpl(api)
     }
 
-    @Provides
-    @Singleton
-    fun providesActiveActivity(activeActivity: Activity): Activity{
-        return KoleffApp.getActiveActivity() //use weakReference in getActiveActivity()
-    }
-
     //View Models
 
     @Provides
     @Singleton
     fun providesStocksViewModel(stockRepository: StockRepository): StocksViewModel{
         return StocksViewModel(stockRepository)
-    }
-
-    @Provides
-    @Singleton
-    fun providesStockViewModel(stockRepository: StockRepository): StockViewModel{
-        return StockViewModel(stockRepository)
     }
 }

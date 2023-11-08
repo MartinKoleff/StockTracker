@@ -19,7 +19,6 @@ public class KoleffApp extends MultiDexApplication implements DefaultLifecycleOb
     public static final String TAG_LOG = "KOLEFF";
 
     private static Context appContext = null;
-    private static Activity activeActivity = null;
     private static SharedPreferences sharedPreferences = null;
 
     /**
@@ -32,14 +31,6 @@ public class KoleffApp extends MultiDexApplication implements DefaultLifecycleOb
 
     public static Context getAppContext() {
         return appContext;
-    }
-
-    public static Activity getActiveActivity() {
-        return activeActivity;
-    }
-
-    private static void setActiveActivity(Activity activeActivity) {
-        KoleffApp.activeActivity = activeActivity;
     }
 
 
