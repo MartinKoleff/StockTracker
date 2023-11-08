@@ -4,19 +4,16 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.koleff.resumeproject.KoleffApp
-import com.koleff.resumeproject.common.errorHandling.ErrorHandler
-import com.koleff.resumeproject.common.managers.DataManager
 import com.koleff.resumeproject.data.dto.StockDto
 import com.koleff.resumeproject.domain.repositories.StockRepository
-import com.koleff.resumeproject.domain.wrappers.StockData
+import com.koleff.resumeproject.domain.wrappers.TickersState
+import com.koleff.resumeproject.domain.wrappers.networkWrappers.KoleffError
 import com.koleff.resumeproject.domain.wrappers.networkWrappers.ResultWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,51 +23,40 @@ class StocksViewModel @Inject constructor(
     private val dispatcher: CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel() {
 
-    private val _state: MutableStateFlow<List<StockData>> =
-        MutableStateFlow(emptyList())
-    val state: StateFlow<List<StockData>>
+    private val _state: MutableStateFlow<TickersState> = MutableStateFlow(TickersState())
+    val state: StateFlow<TickersState>
         get() = _state
 
-    override fun onCleared() {
-        super.onCleared()
-    }
-
-    init {
-//        _state.stateIn(
-//            initialValue = emptyList(),
-//            scope = viewModelScope,
-//            started = SharingStarted.WhileSubscribed(5000)
-//        )
-
-//        getStockData("AAPL", "2023-09-10", "2023-09-18")
-    }
-
-    fun getStocksData() {
+    public fun getStocksData(
+        stockTag: String,
+        dateFrom: String? = null,
+        dateTo: String? = null
+    ) {
         viewModelScope.launch(dispatcher) {
-            stockRepository.getStocks().onEach { apiResult ->
+            stockRepository.getStocks().collect { apiResult ->
                 when (apiResult) {
                     is ResultWrapper.ApiError -> {
-                        ErrorHandler.showError(
-                            apiResult.error,
-                            apiResult.errorMessage
+                        _state.value = TickersState(
+                            isError = true,
+                            error = apiResult.error ?: KoleffError.GENERIC
                         )
                     }
 
                     is ResultWrapper.Loading -> {
-
+                        _state.value = TickersState(isLoading = true)
                     }
 
                     is ResultWrapper.Success -> {
-                        DataManager.stocks =
-                            apiResult.data.stockData
+                        Log.d(KoleffApp.TAG_LOG, "Flow received in StocksViewModel.")
+                        
+                        _state.value = TickersState(
+                            isSuccessful = true,
+                            tickersList = apiResult.data.stockData
                                 .map(StockDto::toStockData)
-                                .also {
-                                Log.d(KoleffApp.TAG_LOG, "Flow received in StocksViewModel.")
-                                _state.value = it
-                            }
+                        )
                     }
                 }
-            }.collect()
+            }
         }
     }
 }
