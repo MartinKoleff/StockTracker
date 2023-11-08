@@ -75,39 +75,40 @@ public class KoleffApp extends MultiDexApplication implements DefaultLifecycleOb
         private void setupActivityListener() {
             registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
                 @Override
-                public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                    Log.i(TAG_LOG, "Created activity: " + activity.toString());
-                    if (savedInstanceState != null) {
-                        //restartActivityStack(activity);
-                    }
+                public void onActivityStopped(Activity activity) {
+                    Log.i("Tracking Activity Stopped", activity.getLocalClassName());
+
                 }
 
                 @Override
                 public void onActivityStarted(Activity activity) {
-                    setActiveActivity(activity);
-                }
+                    Log.i("Tracking Activity Started", activity.getLocalClassName());
 
-                @Override
-                public void onActivityResumed(Activity activity) {
-                    setActiveActivity(activity);
-                }
-
-                @Override
-                public void onActivityPaused(Activity activity) {
-                    //activeActivity = null;
-                }
-
-                @Override
-                public void onActivityStopped(Activity activity) {
                 }
 
                 @Override
                 public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+                    Log.i("Tracking Activity SaveInstanceState", activity.getLocalClassName());
+                }
+
+                @Override
+                public void onActivityResumed(Activity activity) {
+                    Log.i("Tracking Activity Resumed", activity.getLocalClassName());
+                }
+
+                @Override
+                public void onActivityPaused(Activity activity) {
+                    Log.i("Tracking Activity Paused", activity.getLocalClassName());
                 }
 
                 @Override
                 public void onActivityDestroyed(Activity activity) {
-                    setActiveActivity(null);
+                    Log.i("Tracking Activity Destroyed", activity.getLocalClassName());
+                }
+
+                @Override
+                public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                    Log.i("Tracking Activity Created", activity.getLocalClassName());
                 }
             });
         }
