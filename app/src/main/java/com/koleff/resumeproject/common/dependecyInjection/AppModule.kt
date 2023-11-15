@@ -1,9 +1,7 @@
 package com.koleff.resumeproject.common.dependecyInjection
 
-import android.app.Activity
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.koleff.resumeproject.BuildConfig
-import com.koleff.resumeproject.KoleffApp
 import com.koleff.resumeproject.common.Constants
 import com.koleff.resumeproject.common.managers.DataManager
 import com.koleff.resumeproject.data.remote.StockApi
@@ -20,6 +18,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
@@ -37,7 +36,8 @@ object AppModule {
                 val newUrl = original.url.newBuilder()
                     .scheme(Constants.SCHEME_LOCAL)
                     .host(DataManager.apiUrl)
-                    .addQueryParameter("access_key", Constants.API_KEY)
+                    .port(Constants.PORT)
+//                    .addQueryParameter("access_key", Constants.API_KEY)
                     .build()
 
                 val request = original.newBuilder()
@@ -69,10 +69,11 @@ object AppModule {
     @Singleton
     fun provideStockApi(okHttpClient: OkHttpClient, moshi: Moshi): StockApi {
         return Retrofit.Builder()
-            .baseUrl(Constants.BASE_LOCAL_URL)
+            .baseUrl(Constants.BASE_LOCAL_URL_FULL_PORT)
             .client(okHttpClient)
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
+//            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(StockApi::class.java)
     }
