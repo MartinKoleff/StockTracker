@@ -13,10 +13,9 @@ import androidx.navigation.ui.setupWithNavController
 import com.koleff.resumeproject.KoleffApp
 import com.koleff.resumeproject.R
 import com.koleff.resumeproject.databinding.ActivityMainBinding
-import com.koleff.resumeproject.presentation.activities.adapters.AdapterNavigationSettings
-import com.koleff.resumeproject.presentation.activities.adapters.SettingItem
+import com.koleff.resumeproject.presentation.adapters.AdapterNavigationSettings
+import com.koleff.resumeproject.presentation.adapters.SettingItem
 import com.koleff.resumeproject.presentation.activities.base.BaseActivity
-import com.koleff.resumeproject.presentation.viewModels.StockViewModel
 import com.koleff.resumeproject.presentation.viewModels.StocksViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -27,6 +26,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override val bindingInflater: (LayoutInflater) -> ActivityMainBinding =
         ActivityMainBinding::inflate
 
+    private val stocksViewModel: StocksViewModel by viewModels() //TODO: move to fragment. Fix it to be lifecycle aware. Wire with dagger hilt
     override fun setup(): Unit = with(binding) {
 
         //Navigation drawer
@@ -59,15 +59,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         containerMain.bottomNavigationBar.bottomNavigationView.setupWithNavController(navController)
 
         //ViewModels
-        val stocksViewModel: StocksViewModel by viewModels()
-        val stockViewModel: StockViewModel by viewModels()
-
         lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {//RESUMED
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 stocksViewModel.state.collect {
-                    Log.d(KoleffApp.TAG_LOG, "Flow received in MainActivity from StocksViewModel -> $it")
+                    //TODO: handle data...
+                    Log.d(
+                        KoleffApp.TAG_LOG,
+                        "Flow received in MainActivity from StocksViewModel -> $it"
+                    )
                 }
             }
+        }
+
+        containerMain.toolbar.ivRefresh.setOnClickListener {
+            stocksViewModel.getStocksData("")
         }
     }
 
