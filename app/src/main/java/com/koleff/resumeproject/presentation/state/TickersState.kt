@@ -1,5 +1,6 @@
-package com.koleff.resumeproject.domain.wrappers
+package com.koleff.resumeproject.presentation.state
 
+import com.koleff.resumeproject.domain.wrappers.StockData
 import com.koleff.resumeproject.domain.wrappers.networkWrappers.KoleffError
 
 data class TickersState(

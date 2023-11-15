@@ -8,9 +8,11 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.koleff.resumeproject.R
-import com.koleff.resumeproject.domain.wrappers.TickerData
+import com.koleff.resumeproject.domain.wrappers.StockData
 
-class AdapterDashboard(private val tickersList: List<TickerData>):
+typealias TickerData = List<StockData>
+
+class AdapterDashboard(private val tickersList: TickerData):
     RecyclerView.Adapter<AdapterDashboard.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -36,7 +38,7 @@ class AdapterDashboard(private val tickersList: List<TickerData>):
             view.setOnClickListener { defaultClickListener.invoke() }
         }
 
-        fun bindData(tickersData: TickerData) {
+        fun bindData(tickerData: StockData) {
 //            ivCompanyLogo use web scraper?
 //                tvCompanyName.text = tickersData.name
 //                    tvCompanyTag.text = tickersData.stockTag
