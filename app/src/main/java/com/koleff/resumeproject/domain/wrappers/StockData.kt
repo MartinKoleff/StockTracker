@@ -13,10 +13,10 @@ data class StockData (val stockDto: StockDto){
     val exchangeTag = stockDto.stockExchange.name
     val openPrice = currentDateIntraDay?.open ?: 0.0
     val closePrice = currentDateIntraDay?.close ?: 0.0
-    val highPrice= currentDateIntraDay?.high ?: 0.0
+    val highPrice = currentDateIntraDay?.high ?: 0.0
     val lowPrice = currentDateIntraDay?.low ?: 0.0
     val volume = currentDateIntraDay?.volume ?: 0.0
-    val adjustOpenPrice = currentDateIntraDay
+    val adjustOpenPrice = currentDateEndOfDay?.adjustOpen ?: 0.0
     val adjustClosePrice = currentDateEndOfDay?.adjustClose ?: 0.0
     val adjustHighPrice = currentDateEndOfDay?.adjustHigh ?: 0.0
     val adjustLowPrice = currentDateEndOfDay?.adjustLow ?: 0.0
