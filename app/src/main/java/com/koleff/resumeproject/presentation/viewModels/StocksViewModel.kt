@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.koleff.resumeproject.KoleffApp
 import com.koleff.resumeproject.data.dto.StockDto
 import com.koleff.resumeproject.domain.repositories.StockRepository
-import com.koleff.resumeproject.domain.wrappers.TickersState
+import com.koleff.resumeproject.presentation.state.TickersState
 import com.koleff.resumeproject.domain.wrappers.networkWrappers.KoleffError
 import com.koleff.resumeproject.domain.wrappers.networkWrappers.ResultWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
