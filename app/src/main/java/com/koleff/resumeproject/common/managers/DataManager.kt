@@ -27,5 +27,5 @@ object DataManager {
 
     var selectedStock: StockData? = null
 
-    val apiUrl = if(!Constants.useFakeApi) Constants.BASE_URL else Constants.FAKE_BASE_URL
+    val apiUrl = if(!Constants.useFakeApi) Constants.BASE_LOCAL_URL else Constants.FAKE_BASE_URL
 }
