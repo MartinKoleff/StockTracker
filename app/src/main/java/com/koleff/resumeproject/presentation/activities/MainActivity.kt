@@ -1,6 +1,7 @@
 package com.koleff.resumeproject.presentation.activities
 
 import android.view.LayoutInflater
+import android.widget.ImageView
 import android.widget.ListView
 import androidx.core.view.GravityCompat
 import androidx.navigation.fragment.NavHostFragment
@@ -14,7 +15,7 @@ import com.koleff.resumeproject.presentation.fragments.DashboardFragment
 import com.koleff.resumeproject.presentation.fragments.FavouritesFragment
 import com.koleff.resumeproject.presentation.fragments.MainFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -57,10 +58,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         val navController = navHostFragment.navController
         containerMain.bottomNavigationBar.bottomNavigationView.setupWithNavController(navController)
 
+        //Fragment change listener
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+           currentFragment = when (destination.id) {
+               R.id.dashboardFragment -> {
+                   dashboardFragment
+               }
+               R.id.favouritesFragment -> {
+                   favouritesFragment
+               }
+               else -> null
+           }
         }
 
-        containerMain.toolbar.ivRefresh.setOnClickListener {
-            stocksViewModel.getStocksData("")
+        val refreshButton = findViewById<ImageView>(R.id.ivRefresh)
+        refreshButton.setOnClickListener {
+            currentFragment?.refresh()
         }
     }
 
