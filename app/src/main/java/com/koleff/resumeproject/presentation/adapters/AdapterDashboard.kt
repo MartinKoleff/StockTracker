@@ -12,16 +12,16 @@ import com.koleff.resumeproject.domain.wrappers.StockData
 
 typealias TickerData = List<StockData>
 
-class AdapterDashboard(private val tickersList: TickerData):
+class AdapterDashboard(private val tickersList: TickerData) :
     RecyclerView.Adapter<AdapterDashboard.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val ivCompanyLogo: ImageView
-        val tvCompanyName: TextView
-        val tvCompanyTag: TextView
-        val tvClosePrice: TextView
-        val tvAmountOfChange: TextView
-        val tvPercentageOfChange: TextView
+        private val ivCompanyLogo: ImageView
+        private val tvCompanyName: TextView
+        private val tvCompanyTag: TextView
+        private val tvClosePrice: TextView
+        private val tvAmountOfChange: TextView
+        private val tvPercentageOfChange: TextView
         val llSeparator: LinearLayout
         //graph
 
@@ -40,15 +40,15 @@ class AdapterDashboard(private val tickersList: TickerData):
 
         fun bindData(tickerData: StockData) {
 //            ivCompanyLogo use web scraper?
-//                tvCompanyName.text = tickersData.name
-//                    tvCompanyTag.text = tickersData.stockTag
-//                    tvClosePrice.text =
-//                    tvAmountOfChange.text =
-//                    tvPercentageOfChange.text =
+            tvCompanyName.text = tickerData.companyName
+            tvCompanyTag.text = tickerData.stockTag
+            tvClosePrice.text = tickerData.closePrice.toString()
+            tvAmountOfChange.text = tickerData.dayDifference.toString()
+            tvPercentageOfChange.text = tickerData.changePercent.toString()
         }
 
-        companion object{
-           private val defaultClickListener: () -> Unit = {} //Open details screen...
+        companion object {
+            private val defaultClickListener: () -> Unit = {} //Open details screen...
         }
     }
 
@@ -60,8 +60,8 @@ class AdapterDashboard(private val tickersList: TickerData):
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-
-        viewHolder.llSeparator.visibility = if (position < tickersList.size - 1) View.VISIBLE else View.GONE
+        viewHolder.llSeparator.visibility =
+            if (position < tickersList.size - 1) View.VISIBLE else View.GONE
         viewHolder.bindData(tickersList[position])
     }
 

@@ -9,6 +9,7 @@ import java.util.Date
 data class StockData (val stockDto: StockDto){
     private val currentDateIntraDay: IntraDayDto? = stockDto.intraDayList.find { it.date == Date() }
     private val currentDateEndOfDay: EndOfDayDto? = stockDto.endOfDayList.find { it.date == Date() }
+    val companyName = stockDto.name
     val stockTag = stockDto.tag
     val exchangeTag = stockDto.stockExchange.name
     val openPrice = currentDateIntraDay?.open ?: 0.0
