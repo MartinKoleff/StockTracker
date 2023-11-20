@@ -1,22 +1,18 @@
 package com.koleff.resumeproject.presentation.activities
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.ListView
-import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.koleff.resumeproject.KoleffApp
 import com.koleff.resumeproject.R
 import com.koleff.resumeproject.databinding.ActivityMainBinding
+import com.koleff.resumeproject.presentation.activities.base.BaseActivity
 import com.koleff.resumeproject.presentation.adapters.AdapterNavigationSettings
 import com.koleff.resumeproject.presentation.adapters.SettingItem
-import com.koleff.resumeproject.presentation.activities.base.BaseActivity
-import com.koleff.resumeproject.presentation.viewModels.StocksViewModel
+import com.koleff.resumeproject.presentation.fragments.DashboardFragment
+import com.koleff.resumeproject.presentation.fragments.FavouritesFragment
+import com.koleff.resumeproject.presentation.fragments.MainFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -26,7 +22,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override val bindingInflater: (LayoutInflater) -> ActivityMainBinding =
         ActivityMainBinding::inflate
 
-    private val stocksViewModel: StocksViewModel by viewModels() //TODO: move to fragment. Fix it to be lifecycle aware. Wire with dagger hilt
+    private val dashboardFragment: DashboardFragment = DashboardFragment()
+    private val favouritesFragment: FavouritesFragment = FavouritesFragment()
+    private var currentFragment: MainFragment? = dashboardFragment
+
     override fun setup(): Unit = with(binding) {
 
         //Navigation drawer
@@ -58,17 +57,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         val navController = navHostFragment.navController
         containerMain.bottomNavigationBar.bottomNavigationView.setupWithNavController(navController)
 
-        //ViewModels
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                stocksViewModel.state.collect {
-                    //TODO: handle data...
-                    Log.d(
-                        KoleffApp.TAG_LOG,
-                        "Flow received in MainActivity from StocksViewModel -> $it"
-                    )
-                }
-            }
         }
 
         containerMain.toolbar.ivRefresh.setOnClickListener {
