@@ -62,6 +62,7 @@ class AdapterDashboard(private val tickersList: TickerData) :
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.llSeparator.visibility =
             if (position < tickersList.size - 1) View.VISIBLE else View.GONE
+
         viewHolder.bindData(tickersList[position])
     }
 

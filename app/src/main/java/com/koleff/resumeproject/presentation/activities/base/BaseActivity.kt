@@ -19,7 +19,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         _binding = bindingInflater.invoke(layoutInflater)
-        setContentView(binding!!.root)
+        setContentView(binding.root)
 
 //        val window = window
 //        if (Build.VERSION.SDK_INT >= 21) {

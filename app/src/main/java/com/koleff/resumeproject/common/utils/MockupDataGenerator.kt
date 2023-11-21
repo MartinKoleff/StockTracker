@@ -84,3 +84,4 @@ object MockupDataGenerator {
 
         return listOf(stockData, stockData2)
     }
+}
