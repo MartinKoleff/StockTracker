@@ -1,16 +1,11 @@
 package com.koleff.resumeproject.common.navigation
 
+import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import com.koleff.resumeproject.presentation.fragments.DashboardFragment
-import com.koleff.resumeproject.presentation.fragments.DashboardFragmentDirections
 import com.koleff.resumeproject.presentation.fragments.FavouritesFragment
-import com.koleff.resumeproject.presentation.fragments.FavouritesFragmentDirections
-import javax.inject.Inject
 
 
 /**
@@ -19,16 +14,11 @@ import javax.inject.Inject
  * BaseActivity extends AppCompatActivity.
  */
 
-@Deprecated("Unused")
-class NavigationManager @Inject constructor(
+class NavigationManager(
     private val activity: AppCompatActivity,
-    private val containerId: Int,
+    @IdRes private val containerId: Int,
     private val supportFragmentManager: FragmentManager = activity.supportFragmentManager
 ) {
-    private val navHostFragment by lazy {
-        supportFragmentManager.findFragmentById(containerId) as NavHostFragment
-    }
-    private val navController by lazy { navHostFragment.navController }
 
     //Fragments
     private val dashboardFragment: DashboardFragment by lazy {
@@ -39,21 +29,6 @@ class NavigationManager @Inject constructor(
         FavouritesFragment()
     }
 
-    fun navigate(type: FragmentType){
-        when (type) {
-            FragmentType.DASHBOARD -> {
-                val action =
-                    FavouritesFragmentDirections.actionFavouritesFragmentToDashboardFragment()
-
-                navController.navigate(action)
-            }
-            FragmentType.FAVOURITES -> {
-                val action = DashboardFragmentDirections.actionDashboardFragmentToFavouritesFragment()
-
-                navController.navigate(action)
-            }
-        }
-    }
 
     private fun getActiveFragment(): Fragment? {
         supportFragmentManager.fragments.forEach {
@@ -63,7 +38,6 @@ class NavigationManager @Inject constructor(
         return null
     }
 
-    @Deprecated("Old way")
     fun showFragment(type: FragmentType) {
         val fragment = when (type) {
             FragmentType.DASHBOARD -> dashboardFragment
