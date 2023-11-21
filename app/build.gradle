@@ -17,6 +17,7 @@ android {
         targetSdk 34
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -115,6 +116,10 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit2_version"
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+
+    // Jackson
+    implementation "com.fasterxml.jackson.module:jackson-module-kotlin:$version"
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
 
     //JSoup (Web scraping)
 //    implementation 'org.jsoup:jsoup:1.14.3'
