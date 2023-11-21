@@ -1,5 +1,6 @@
 package com.koleff.resumeproject.presentation.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,16 +13,48 @@ import com.koleff.resumeproject.domain.wrappers.StockData
 
 typealias TickerData = List<StockData>
 
-class AdapterDashboard(private val tickersList: TickerData) :
+class AdapterDashboard :
     RecyclerView.Adapter<AdapterDashboard.ViewHolder>() {
 
+    private var tickersList: MutableList<StockData> = mutableListOf()
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun submitList(newList: TickerData) {
+        tickersList.clear()
+        tickersList.addAll(newList)
+        notifyDataSetChanged()
+    }
+
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(viewGroup.context)
+            .inflate(R.layout.item_stock, viewGroup, false)
+
+        return ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+        val stockItem = tickersList[position]
+
+        viewHolder.llSeparator.visibility =
+            if (position < tickersList.size - 1) View.VISIBLE else View.GONE
+
+//        ivCompanyLogo use web scraper?
+        viewHolder.tvCompanyName.text = stockItem.companyName
+        viewHolder.tvCompanyTag.text = stockItem.stockTag
+        viewHolder.tvClosePrice.text = stockItem.closePrice.toString()
+        viewHolder.tvAmountOfChange.text = stockItem.dayDifference.toString()
+        viewHolder.tvPercentageOfChange.text = stockItem.changePercent.toString()
+    }
+
+    override fun getItemCount() = tickersList.size
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val ivCompanyLogo: ImageView
-        private val tvCompanyName: TextView
-        private val tvCompanyTag: TextView
-        private val tvClosePrice: TextView
-        private val tvAmountOfChange: TextView
-        private val tvPercentageOfChange: TextView
+        val ivCompanyLogo: ImageView
+        val tvCompanyName: TextView
+        val tvCompanyTag: TextView
+        val tvClosePrice: TextView
+        val tvAmountOfChange: TextView
+        val tvPercentageOfChange: TextView
         val llSeparator: LinearLayout
         //graph
 
@@ -38,33 +71,8 @@ class AdapterDashboard(private val tickersList: TickerData) :
             view.setOnClickListener { defaultClickListener.invoke() }
         }
 
-        fun bindData(tickerData: StockData) {
-//            ivCompanyLogo use web scraper?
-            tvCompanyName.text = tickerData.companyName
-            tvCompanyTag.text = tickerData.stockTag
-            tvClosePrice.text = tickerData.closePrice.toString()
-            tvAmountOfChange.text = tickerData.dayDifference.toString()
-            tvPercentageOfChange.text = tickerData.changePercent.toString()
-        }
-
         companion object {
             private val defaultClickListener: () -> Unit = {} //Open details screen...
         }
     }
-
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.item_stock, viewGroup, false)
-
-        return ViewHolder(view)
-    }
-
-    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.llSeparator.visibility =
-            if (position < tickersList.size - 1) View.VISIBLE else View.GONE
-
-        viewHolder.bindData(tickersList[position])
-    }
-
-    override fun getItemCount() = tickersList.size
 }

@@ -1,5 +1,6 @@
 package com.koleff.resumeproject.presentation.fragments
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +8,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.navGraphViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.koleff.resumeproject.KoleffApp
+import com.koleff.resumeproject.R
 import com.koleff.resumeproject.databinding.FragmentDashboardBinding
 import com.koleff.resumeproject.domain.wrappers.StockData
 import com.koleff.resumeproject.presentation.adapters.AdapterDashboard
@@ -24,9 +29,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(), MainFragment
 
     private val stocksViewModel: StocksViewModel by viewModels()
     override fun setup(): Unit = with(binding) {
-        var stocksList = listOf<StockData>()
-        val stockAdapter = AdapterDashboard(stocksList)
+        val stockAdapter = AdapterDashboard()
         rvStocks.adapter = stockAdapter
+        rvStocks.layoutManager = LinearLayoutManager(this@DashboardFragment.context)
 
         //ViewModels
         lifecycleScope.launch {
@@ -34,7 +39,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(), MainFragment
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 stocksViewModel.state.collect { state ->
                     //TODO: check state success/error...
-                    stocksList = state.tickersList
+                    stockAdapter.submitList(state.tickersList)
 
                     Log.d(
                         KoleffApp.TAG_LOG,
