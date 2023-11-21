@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DashboardFragment : BaseFragment<FragmentDashboardBinding>(), MainFragment {
+class DashboardFragment : BaseFragment<FragmentDashboardBinding>(), MainFragmentFeatures {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDashboardBinding =
         FragmentDashboardBinding::inflate

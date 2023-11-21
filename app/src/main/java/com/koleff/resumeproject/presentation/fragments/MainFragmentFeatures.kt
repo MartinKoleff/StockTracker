@@ -1,6 +1,7 @@
 package com.koleff.resumeproject.presentation.fragments
 
-interface MainFragment {
+interface MainFragmentFeatures {
 
-    fun refresh() : Unit
+    fun refresh()
+
 }
