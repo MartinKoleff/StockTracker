@@ -10,17 +10,15 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-    <include
-        android:id="@+id/bottom_navigation_bar"
-        layout="@layout/bottom_navigation_bar" />
-
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/container_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
         android:layout_alignParentBottom="true">
-
-
     </androidx.fragment.app.FragmentContainerView>
+
+    <include
+        android:id="@+id/bottom_navigation_bar"
+        layout="@layout/bottom_navigation_bar" />
 </RelativeLayout>
