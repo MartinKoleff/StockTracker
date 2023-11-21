@@ -13,8 +13,10 @@ import com.koleff.resumeproject.domain.wrappers.StockData
 import com.koleff.resumeproject.presentation.adapters.AdapterDashboard
 import com.koleff.resumeproject.presentation.fragments.base.BaseFragment
 import com.koleff.resumeproject.presentation.viewModels.StocksViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class DashboardFragment : BaseFragment<FragmentDashboardBinding>(), MainFragment {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDashboardBinding =
@@ -29,13 +31,15 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(), MainFragment
 
         //ViewModels
         lifecycleScope.launch {
+            Log.d(KoleffApp.TAG_LOG, "Collect block started")
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                stocksViewModel.state.collect {
-                    stocksList = stocksViewModel.state.value.tickersList
+                stocksViewModel.state.collect { state ->
+                    //TODO: check state success/error...
+                    stocksList = state.tickersList
 
                     Log.d(
                         KoleffApp.TAG_LOG,
-                        "Flow received in MainActivity from StocksViewModel -> $it"
+                        "Flow received in MainActivity from StocksViewModel -> $state"
                     )
                 }
             }
