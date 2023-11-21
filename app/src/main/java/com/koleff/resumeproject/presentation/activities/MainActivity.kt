@@ -7,12 +7,14 @@ import androidx.core.view.GravityCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.koleff.resumeproject.R
+import com.koleff.resumeproject.common.navigation.NavigationManager
 import com.koleff.resumeproject.databinding.ActivityMainBinding
 import com.koleff.resumeproject.presentation.activities.base.BaseActivity
 import com.koleff.resumeproject.presentation.adapters.AdapterNavigationSettings
 import com.koleff.resumeproject.presentation.adapters.SettingItem
 import com.koleff.resumeproject.presentation.fragments.DashboardFragment
 import com.koleff.resumeproject.presentation.fragments.FavouritesFragment
+import com.koleff.resumeproject.presentation.fragments.MainFragmentFeatures
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -22,11 +24,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override val bindingInflater: (LayoutInflater) -> ActivityMainBinding =
         ActivityMainBinding::inflate
 
-    private val dashboardFragment: DashboardFragment = DashboardFragment()
-    private val favouritesFragment: FavouritesFragment = FavouritesFragment()
-//    private var currentFragment: MainFragment? = dashboardFragment
-
     override fun setup(): Unit = with(binding) {
+        val navigationManager = NavigationManager(this@MainActivity, R.id.container_main)
 
         //Navigation drawer
         containerMain.toolbar.ivNavigationDrawer.setOnClickListener {
@@ -57,34 +56,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         val navController = navHostFragment.navController
         containerMain.bottomNavigationBar.bottomNavigationView.setupWithNavController(navController)
 
-        //Fragment change listener
-//        navController.addOnDestinationChangedListener { _, destination, _ ->
-//            currentFragment = when (destination.id) {
-//                R.id.dashboardFragment -> {
-//                    dashboardFragment
-//                }
-//
-//                R.id.favouritesFragment -> {
-//                    favouritesFragment
-//                }
-//
-//                else -> null
-//            }
-//        }
-
         val refreshButton = findViewById<ImageView>(R.id.ivRefresh)
         refreshButton.setOnClickListener {
-            val currentFragment = supportFragmentManager.findFragmentById(R.id.container_fragment)?.childFragmentManager?.fragments?.first()
-            when (currentFragment) {
-                is DashboardFragment -> {
-                    dashboardFragment.refresh()
-                }
-                is FavouritesFragment -> {
-                    favouritesFragment.refresh()
-                }
-                else -> {}
-            }
-//            currentFragment?.refresh()
+            (navigationManager.getActiveFragment() as MainFragmentFeatures).refresh()
         }
     }
 
