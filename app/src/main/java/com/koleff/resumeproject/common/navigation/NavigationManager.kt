@@ -20,6 +20,8 @@ class NavigationManager(
     private val supportFragmentManager: FragmentManager = activity.supportFragmentManager
 ) {
 
+    private var currentFragment: Fragment? = null
+
     //Fragments
     private val dashboardFragment: DashboardFragment by lazy {
         DashboardFragment()
@@ -30,7 +32,7 @@ class NavigationManager(
     }
 
 
-    private fun getActiveFragment(): Fragment? {
+    fun getActiveFragment(): Fragment? {
         supportFragmentManager.fragments.forEach {
             if (it.isVisible) return it
         }
@@ -44,15 +46,11 @@ class NavigationManager(
             FragmentType.FAVOURITES -> favouritesFragment
         }
 
-        val attachedFragment = supportFragmentManager.findFragmentByTag(type.title)
+        currentFragment = fragment
 
         supportFragmentManager.beginTransaction().apply {
-            //Selected fragment already shown...
-            if (attachedFragment?.isAdded == true) {
-                show(attachedFragment)
-            } else {
-                containerId.apply { add(this, fragment, type.title) }
-            }
-        }.commitNowAllowingStateLoss()
+            replace(containerId, fragment)
+            commit()
+        }
     }
 }
