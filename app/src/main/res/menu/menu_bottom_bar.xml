@@ -3,7 +3,7 @@
     android:layout_alignParentBottom="true">
 
     <item
-        android:id="@+id/dashboardFragment"
+        android:id="@+id/dashboardFragmentMenu"
         android:title="@string/text_dashboard"
         android:icon="@drawable/ic_home"/>
 
@@ -11,7 +11,7 @@
         android:title="" />
 
     <item
-        android:id="@+id/favouritesFragment"
+        android:id="@+id/favouritesFragmentMenu"
         android:title="@string/text_favourites"
         android:icon="@drawable/ic_star"/>
 

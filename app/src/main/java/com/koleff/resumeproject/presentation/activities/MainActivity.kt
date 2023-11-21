@@ -4,15 +4,17 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.ListView
 import androidx.core.view.GravityCompat
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.koleff.resumeproject.R
+import com.koleff.resumeproject.common.navigation.FragmentType
+import com.koleff.resumeproject.common.navigation.NavigationManager
 import com.koleff.resumeproject.databinding.ActivityMainBinding
 import com.koleff.resumeproject.presentation.activities.base.BaseActivity
 import com.koleff.resumeproject.presentation.adapters.AdapterNavigationSettings
 import com.koleff.resumeproject.presentation.adapters.SettingItem
 import com.koleff.resumeproject.presentation.fragments.DashboardFragment
 import com.koleff.resumeproject.presentation.fragments.FavouritesFragment
+import com.koleff.resumeproject.presentation.fragments.MainFragmentFeatures
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -22,9 +24,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override val bindingInflater: (LayoutInflater) -> ActivityMainBinding =
         ActivityMainBinding::inflate
 
-    private val dashboardFragment: DashboardFragment = DashboardFragment()
-    private val favouritesFragment: FavouritesFragment = FavouritesFragment()
-//    private var currentFragment: MainFragment? = dashboardFragment
+    private val navigationManager =
+        NavigationManager(this@MainActivity, R.id.container_fragment, supportFragmentManager)
 
     override fun setup(): Unit = with(binding) {
 
@@ -47,44 +48,36 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         listSettings.adapter = adapterSettings
 
         //Bottom navigation bar
-        containerMain.bottomNavigationBar.bottomNavigationView.background = null
-        containerMain.bottomNavigationBar.bottomNavigationView.menu.getItem(1).isEnabled = false
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
+        bottomNavigationView.background = null
+        bottomNavigationView.menu.getItem(1).isEnabled = false
 
-        //Navigation
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.container_fragment) as NavHostFragment
+        //Bottom buttons navigation
+        bottomNavigationView.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.dashboardFragmentMenu -> {
+                    navigationManager.showFragment(FragmentType.DASHBOARD)
+                    true
+                }
 
-        val navController = navHostFragment.navController
-        containerMain.bottomNavigationBar.bottomNavigationView.setupWithNavController(navController)
+                R.id.favouritesFragmentMenu -> {
+                    navigationManager.showFragment(FragmentType.FAVOURITES)
+                    true
+                }
+                else -> false
+            }
+        }
 
-        //Fragment change listener
-//        navController.addOnDestinationChangedListener { _, destination, _ ->
-//            currentFragment = when (destination.id) {
-//                R.id.dashboardFragment -> {
-//                    dashboardFragment
-//                }
-//
-//                R.id.favouritesFragment -> {
-//                    favouritesFragment
-//                }
-//
-//                else -> null
-//            }
-//        }
+        //Initial load
+        navigationManager.showFragment(FragmentType.DASHBOARD)
 
+        //Refresh
         val refreshButton = findViewById<ImageView>(R.id.ivRefresh)
         refreshButton.setOnClickListener {
-            val currentFragment = supportFragmentManager.findFragmentById(R.id.container_fragment)?.childFragmentManager?.fragments?.first()
-            when (currentFragment) {
-                is DashboardFragment -> {
-                    dashboardFragment.refresh()
-                }
-                is FavouritesFragment -> {
-                    favouritesFragment.refresh()
-                }
-                else -> {}
-            }
-//            currentFragment?.refresh()
+            val currentFragment =
+                supportFragmentManager.findFragmentById(R.id.container_fragment) as MainFragmentFeatures
+
+            currentFragment.refresh()
         }
     }
 

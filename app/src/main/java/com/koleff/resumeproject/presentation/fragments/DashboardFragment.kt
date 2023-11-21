@@ -23,7 +23,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(), MainFragment
         FragmentDashboardBinding::inflate
 
     private val stocksViewModel: StocksViewModel by viewModels()
-
     override fun setup(): Unit = with(binding) {
         var stocksList = listOf<StockData>()
         val stockAdapter = AdapterDashboard(stocksList)
