@@ -4,7 +4,9 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.ListView
 import androidx.core.view.GravityCompat
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.koleff.resumeproject.R
+import com.koleff.resumeproject.common.navigation.FragmentType
 import com.koleff.resumeproject.common.navigation.NavigationManager
 import com.koleff.resumeproject.databinding.ActivityMainBinding
 import com.koleff.resumeproject.presentation.activities.base.BaseActivity
@@ -12,6 +14,7 @@ import com.koleff.resumeproject.presentation.adapters.AdapterNavigationSettings
 import com.koleff.resumeproject.presentation.adapters.SettingItem
 import com.koleff.resumeproject.presentation.fragments.DashboardFragment
 import com.koleff.resumeproject.presentation.fragments.FavouritesFragment
+import com.koleff.resumeproject.presentation.fragments.MainFragmentFeatures
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -21,8 +24,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override val bindingInflater: (LayoutInflater) -> ActivityMainBinding =
         ActivityMainBinding::inflate
 
-    private val dashboardFragment: DashboardFragment = DashboardFragment()
-    private val favouritesFragment: FavouritesFragment = FavouritesFragment()
+    private val navigationManager =
+        NavigationManager(this@MainActivity, R.id.container_fragment, supportFragmentManager)
 
     override fun setup(): Unit = with(binding) {
 
@@ -45,8 +48,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         listSettings.adapter = adapterSettings
 
         //Bottom navigation bar
-        containerMain.bottomNavigationBar.bottomNavigationView.background = null
-        containerMain.bottomNavigationBar.bottomNavigationView.menu.getItem(1).isEnabled = false
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
+        bottomNavigationView.background = null
+        bottomNavigationView.menu.getItem(1).isEnabled = false
 
         val refreshButton = findViewById<ImageView>(R.id.ivRefresh)
         refreshButton.setOnClickListener {
@@ -54,17 +58,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             when (currentFragment) {
                 is DashboardFragment -> {
                     dashboardFragment.refresh()
+        //Bottom buttons navigation
+        bottomNavigationView.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.dashboardFragmentMenu -> {
+                    navigationManager.showFragment(FragmentType.DASHBOARD)
+                    true
                 }
-                is FavouritesFragment -> {
-                    favouritesFragment.refresh()
+
+                R.id.favouritesFragmentMenu -> {
+                    navigationManager.showFragment(FragmentType.FAVOURITES)
+                    true
                 }
-                else -> {}
+                else -> false
             }
         }
 
-        val navigationManager = NavigationManager(this@MainActivity, R.id.container_fragment, supportFragmentManager)
-        //Add button navigation...
-        
     }
 
 
