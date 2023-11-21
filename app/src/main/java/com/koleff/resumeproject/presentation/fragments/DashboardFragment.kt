@@ -7,9 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.navGraphViewModels
 import com.koleff.resumeproject.KoleffApp
-import com.koleff.resumeproject.R
 import com.koleff.resumeproject.databinding.FragmentDashboardBinding
 import com.koleff.resumeproject.domain.wrappers.StockData
 import com.koleff.resumeproject.presentation.adapters.AdapterDashboard
@@ -24,7 +22,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(), MainFragment
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDashboardBinding =
         FragmentDashboardBinding::inflate
 
-//    private val stocksViewModel: StocksViewModel by navGraphViewModels(R.id.main_activity_navigation)
+    private val stocksViewModel: StocksViewModel by viewModels()
     override fun setup(): Unit = with(binding) {
         var stocksList = listOf<StockData>()
         val stockAdapter = AdapterDashboard(stocksList)
