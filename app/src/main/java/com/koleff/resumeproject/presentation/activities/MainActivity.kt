@@ -25,7 +25,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private val dashboardFragment: DashboardFragment = DashboardFragment()
     private val favouritesFragment: FavouritesFragment = FavouritesFragment()
-    private var currentFragment: MainFragment? = dashboardFragment
+//    private var currentFragment: MainFragment? = dashboardFragment
 
     override fun setup(): Unit = with(binding) {
 
@@ -59,21 +59,33 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         containerMain.bottomNavigationBar.bottomNavigationView.setupWithNavController(navController)
 
         //Fragment change listener
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-           currentFragment = when (destination.id) {
-               R.id.dashboardFragment -> {
-                   dashboardFragment
-               }
-               R.id.favouritesFragment -> {
-                   favouritesFragment
-               }
-               else -> null
-           }
-        }
+//        navController.addOnDestinationChangedListener { _, destination, _ ->
+//            currentFragment = when (destination.id) {
+//                R.id.dashboardFragment -> {
+//                    dashboardFragment
+//                }
+//
+//                R.id.favouritesFragment -> {
+//                    favouritesFragment
+//                }
+//
+//                else -> null
+//            }
+//        }
 
         val refreshButton = findViewById<ImageView>(R.id.ivRefresh)
         refreshButton.setOnClickListener {
-            currentFragment?.refresh()
+            val currentFragment = supportFragmentManager.findFragmentById(R.id.container_fragment)?.childFragmentManager?.fragments?.first()
+            when (currentFragment) {
+                is DashboardFragment -> {
+                    dashboardFragment.refresh()
+                }
+                is FavouritesFragment -> {
+                    favouritesFragment.refresh()
+                }
+                else -> {}
+            }
+//            currentFragment?.refresh()
         }
     }
 
