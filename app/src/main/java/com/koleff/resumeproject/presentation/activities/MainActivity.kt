@@ -52,12 +52,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         bottomNavigationView.background = null
         bottomNavigationView.menu.getItem(1).isEnabled = false
 
-        val refreshButton = findViewById<ImageView>(R.id.ivRefresh)
-        refreshButton.setOnClickListener {
-            val currentFragment = supportFragmentManager.findFragmentById(R.id.container_fragment)
-            when (currentFragment) {
-                is DashboardFragment -> {
-                    dashboardFragment.refresh()
         //Bottom buttons navigation
         bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -74,6 +68,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
         }
 
+        //Refresh
+        val refreshButton = findViewById<ImageView>(R.id.ivRefresh)
+        refreshButton.setOnClickListener {
+            val currentFragment =
+                supportFragmentManager.findFragmentById(R.id.container_fragment) as MainFragmentFeatures
+
+            currentFragment.refresh()
+        }
     }
 
 
