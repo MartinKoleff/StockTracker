@@ -68,6 +68,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
         }
 
+        //Initial load
+        navigationManager.showFragment(FragmentType.DASHBOARD)
+
         //Refresh
         val refreshButton = findViewById<ImageView>(R.id.ivRefresh)
         refreshButton.setOnClickListener {
