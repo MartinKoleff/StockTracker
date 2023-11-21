@@ -13,7 +13,6 @@ import com.koleff.resumeproject.presentation.adapters.AdapterNavigationSettings
 import com.koleff.resumeproject.presentation.adapters.SettingItem
 import com.koleff.resumeproject.presentation.fragments.DashboardFragment
 import com.koleff.resumeproject.presentation.fragments.FavouritesFragment
-import com.koleff.resumeproject.presentation.fragments.MainFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 
